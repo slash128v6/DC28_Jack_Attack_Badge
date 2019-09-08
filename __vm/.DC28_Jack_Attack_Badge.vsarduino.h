@@ -10,7 +10,6 @@
 
 #define __AVR_ATmega32u4__
 #define __AVR_ATmega32U4__
-#define _VMDEBUG 1
 #define ARDUINO 10809
 #define ARDUINO_MAIN
 #define F_CPU 16000000L

@@ -30,7 +30,9 @@ void initGame();
 void shipControl();
 void laserControl();
 void jackControl();
+void explosionSound();
 void collisionControl();
+void gameOver();
 signed int backgroundControl(signed int shipMovX, signed int shipMovY);
 void centerText(const char *Text, unsigned char Y);
 void updateDisplay();
@@ -52,7 +54,6 @@ const int laserHeight = 2;
 const int laserSpeed = 6;
 const int jackWidth = 16;
 const int jackHeight = 16;
-//const int jackSpeed = 1;
 const int explosionWidth = 16;
 const int explosionHeight = 8;
 const int bgrndWidth = 128;
@@ -60,6 +61,7 @@ const int bgrndHeight = 64;
 
 signed int shipStartX = (SCREEN_WIDTH / 4);
 signed int shipStartY = ((SCREEN_HEIGHT / 2) - (shipHeight / 2));
+int playerLives = 0;
 signed int jackPosX = SCREEN_WIDTH;
 signed int jackPosY = ((SCREEN_HEIGHT / 2) - (jackHeight / 2));
 signed int bgrndPosX = 0;
@@ -70,7 +72,7 @@ boolean laserFired = false;
 
 unsigned int highScore = 0;
 unsigned int score = 0;
-unsigned int playerLives = 0;
+unsigned int explosionDuration = 50;
 
 #define UP 4
 #define DOWN 5
@@ -109,6 +111,10 @@ void loop()
 	jackControl();
 	collisionControl();
 	backgroundControl(ship.locX, ship.locY);
+	if(playerLives < 0) {
+		delay(500);
+		gameOver();
+	}
 	updateDisplay();
 }
 
@@ -137,6 +143,8 @@ void initGame() {
 	ship.status = ALIVE;
 	
 	laser.status = DEAD;
+	
+	playerLives = 3;
 	
 	jack.locX = jackPosX;
 	jack.locY = random(8, 58);
@@ -219,6 +227,19 @@ void jackControl() {
 	}
 }
 
+void explosionSound() {
+	for(int i = 0; i < explosionDuration; i++) {
+		analogWrite(EYELEFT, 127);
+		delay(1);
+		analogWrite(EYELEFT, 0);
+		tone(BUZZER, 50, 10);
+		analogWrite(EYERIGHT, 127);
+		delay(1);
+		analogWrite(EYERIGHT, 0);
+		tone(BUZZER, 50, 10);
+	}
+}
+
 void collisionControl() {
 	
 	// Laser and Jack Collision
@@ -228,6 +249,7 @@ void collisionControl() {
 				laser.status = DEAD;
 				jack.status = HIT;
 				score += 10;
+				explosionSound();
 			}
 		}
 	}
@@ -237,11 +259,38 @@ void collisionControl() {
 		if((jack.locX <= (ship.locX + shipWidth)) && (ship.locX <= jack.locX)) {
 			if(((ship.locY + shipHeight) >= jack.locY) && (ship.locY <= (jack.locY + jackHeight))) {
 				ship.status = HIT;
+				playerLives -= 1;
 				jack.status = HIT;
+				explosionSound();
 			}
 		}
 	}
 	
+}
+
+void gameOver() {
+	if(score > highScore) {
+		highScore = score;
+		EEPROM.put(0,highScore);
+	}
+	
+	int restart = 1;
+	while(restart) {
+		display.clearDisplay();
+		display.setTextColor(WHITE);
+		centerText("GAME OVER", 16);
+		display.setCursor(29, 32);
+		display.print("Score: ");
+		display.print(score);
+		display.setCursor(4, 48);
+		display.print("High Score: ");
+		display.print(highScore);
+		display.display();
+		restart = digitalRead(FIRE);
+	}
+
+	score = 0;
+	playerLives = 3;
 }
 
 signed int backgroundControl(signed int shipMovX, signed int shipMovY) {
@@ -257,7 +306,9 @@ void centerText(const char *Text, unsigned char Y)  {
 void updateDisplay() {
 	display.clearDisplay();
 	
-	centerText("Score    ", 0);
+	display.setCursor(0, 0);
+	display.print(playerLives);
+	display.setCursor(SCREEN_WIDTH/2, 0);
 	display.print(score);
 	
 	if(ship.status == ALIVE) {

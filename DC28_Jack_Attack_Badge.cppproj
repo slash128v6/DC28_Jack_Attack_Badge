@@ -56,7 +56,6 @@
     <ListValues>
       <Value>__AVR_ATmega32u4__</Value>
       <Value>__AVR_ATmega32U4__</Value>
-      <Value>_VMDEBUG=1</Value>
       <Value>ARDUINO=10809</Value>
       <Value>ARDUINO_MAIN</Value>
       <Value>F_CPU=16000000L</Value>
@@ -75,7 +74,6 @@
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/SPI/src</Value>
       <Value>C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries/Adafruit-GFX-Library</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/EEPROM/src</Value>
-      <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src/utility</Value>
       <Value>C:/Program Files (x86)/Arduino/libraries</Value>
       <Value>C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries</Value>
@@ -100,7 +98,6 @@
     <ListValues>
       <Value>__AVR_ATmega32u4__</Value>
       <Value>__AVR_ATmega32U4__</Value>
-      <Value>_VMDEBUG=1</Value>
       <Value>ARDUINO=10809</Value>
       <Value>ARDUINO_MAIN</Value>
       <Value>F_CPU=16000000L</Value>
@@ -119,7 +116,6 @@
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/SPI/src</Value>
       <Value>C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries/Adafruit-GFX-Library</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/EEPROM/src</Value>
-      <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src/utility</Value>
       <Value>C:/Program Files (x86)/Arduino/libraries</Value>
       <Value>C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries</Value>
@@ -161,7 +157,6 @@
     <ListValues>
       <Value>__AVR_ATmega32u4__</Value>
       <Value>__AVR_ATmega32U4__</Value>
-      <Value>_VMDEBUG=1</Value>
       <Value>ARDUINO=10809</Value>
       <Value>ARDUINO_MAIN</Value>
       <Value>F_CPU=16000000L</Value>
@@ -180,7 +175,6 @@
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/SPI/src</Value>
       <Value>C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries/Adafruit-GFX-Library</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/EEPROM/src</Value>
-      <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src/utility</Value>
       <Value>C:/Program Files (x86)/Arduino/libraries</Value>
       <Value>C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries</Value>
@@ -205,7 +199,6 @@
     <ListValues>
       <Value>__AVR_ATmega32u4__</Value>
       <Value>__AVR_ATmega32U4__</Value>
-      <Value>_VMDEBUG=1</Value>
       <Value>ARDUINO=10809</Value>
       <Value>ARDUINO_MAIN</Value>
       <Value>F_CPU=16000000L</Value>
@@ -224,7 +217,6 @@
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/SPI/src</Value>
       <Value>C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries/Adafruit-GFX-Library</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/EEPROM/src</Value>
-      <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src/utility</Value>
       <Value>C:/Program Files (x86)/Arduino/libraries</Value>
       <Value>C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries</Value>
