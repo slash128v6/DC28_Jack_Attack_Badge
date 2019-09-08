@@ -67,21 +67,22 @@ signed int jackPosY = ((SCREEN_HEIGHT / 2) - (jackHeight / 2));
 signed int bgrndPosX = 0;
 signed int bgrndPosY = 0;
 
-boolean laserFired = false;
+boolean laserBUTTAd = false;
 
 
 unsigned int highScore = 0;
 unsigned int score = 0;
 unsigned int explosionDuration = 50;
 
-#define UP 4
-#define DOWN 5
-#define LEFT 6
-#define RIGHT 7
-#define FIRE 8
+#define UP A0
+#define RIGHT A1
+#define LEFT A2
+#define DOWN A3
+#define BUTTA 7
+#define BUTTB 8
 #define EYELEFT 9
 #define EYERIGHT 10
-#define BUZZER 11
+#define BUZZER 5
 
 #define ALIVE 0
 #define HIT 1
@@ -128,10 +129,11 @@ void initDisplay() {
 void initIO() {
 	// Initialize I/O
 	pinMode(UP, INPUT_PULLUP);
-	pinMode(DOWN, INPUT_PULLUP);
-	pinMode(LEFT, INPUT_PULLUP);
 	pinMode(RIGHT, INPUT_PULLUP);
-	pinMode(FIRE, INPUT_PULLUP);
+	pinMode(LEFT, INPUT_PULLUP);
+	pinMode(DOWN, INPUT_PULLUP);
+	pinMode(BUTTA, INPUT_PULLUP);
+	pinMode(BUTTB, INPUT_PULLUP);
 	pinMode(EYELEFT, OUTPUT);
 	pinMode(EYERIGHT, OUTPUT);
 	pinMode(BUZZER, OUTPUT);
@@ -188,7 +190,7 @@ void shipControl() {
 		}
 	}
 	
-	if((digitalRead(FIRE) == 0) && (laser.status == DEAD)) {
+	if((digitalRead(BUTTA) == 0) && (laser.status == DEAD)) {
 		laser.status = ALIVE;
 		laser.locX = ship.locX;
 		laser.locY = ship.locY + (shipHeight/2);
@@ -286,7 +288,7 @@ void gameOver() {
 		display.print("High Score: ");
 		display.print(highScore);
 		display.display();
-		restart = digitalRead(FIRE);
+		restart = digitalRead(BUTTB);
 	}
 
 	score = 0;
