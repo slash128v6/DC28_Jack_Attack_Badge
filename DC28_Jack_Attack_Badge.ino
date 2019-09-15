@@ -7,6 +7,8 @@ Author:     slash128
 */
 
 #include <Arduino.h>
+#include <SPI.h>
+#include <Wire.h>
 #include <Adafruit_SSD1306.h>
 #include <Adafruit_GFX.h>
 #include <EEPROM.h>
@@ -15,12 +17,22 @@ Author:     slash128
 // Define User Types below here or use a .h file
 //
 
-// OLED display settings
+/*
+// I2C OLED display settings
 #define OLED_ADDRESS	0x3C
 #define SCREEN_WIDTH	128
 #define SCREEN_HEIGHT	64
 #define OLED_RESET -1
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+*/
+
+// Hardware SPI OLED display settings
+#define SCREEN_WIDTH	128
+#define SCREEN_HEIGHT	64
+#define OLED_DC     4
+#define OLED_CS     12
+#define OLED_RESET  6
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &SPI, OLED_DC, OLED_RESET, OLED_CS);
 
 // Define Function Prototypes that use User Types below here or use a .h file
 //
@@ -64,11 +76,15 @@ signed int shipStartY = ((SCREEN_HEIGHT / 2) - (shipHeight / 2));
 int playerLives = 0;
 signed int jackPosX = SCREEN_WIDTH;
 signed int jackPosY = ((SCREEN_HEIGHT / 2) - (jackHeight / 2));
-signed int bgrndPosX = 0;
-signed int bgrndPosY = 0;
+signed int bgrndMovX;
+signed int bgrndMovY;
+float bgrnd1PosX = 0;
+float bgrnd1PosY = 0;
+float bgrnd2PosX = SCREEN_WIDTH;
+float bgrnd2PosY = 0;
+float bgrndMovSpeed = 0.1;
 
-boolean laserBUTTAd = false;
-
+boolean laserFired = false;
 
 unsigned int highScore = 0;
 unsigned int score = 0;
@@ -111,7 +127,7 @@ void loop()
 	laserControl();
 	jackControl();
 	collisionControl();
-	backgroundControl(ship.locX, ship.locY);
+	//backgroundControl(ship.locX, ship.locY);
 	if(playerLives < 0) {
 		delay(500);
 		gameOver();
@@ -121,7 +137,8 @@ void loop()
 
 void initDisplay() {
 	// Initialize the OLED display
-	display.begin(SSD1306_SWITCHCAPVCC, OLED_ADDRESS);
+	// display.begin(SSD1306_SWITCHCAPVCC, OLED_ADDRESS); // I2C display.begin
+	display.begin(SSD1306_SWITCHCAPVCC); // SPI display.begin
 	display.setTextSize(1);
 	display.setTextColor(WHITE);
 }
@@ -137,6 +154,8 @@ void initIO() {
 	pinMode(EYELEFT, OUTPUT);
 	pinMode(EYERIGHT, OUTPUT);
 	pinMode(BUZZER, OUTPUT);
+	analogWrite(EYELEFT, 255);
+	analogWrite(EYERIGHT, 255);
 }
 
 void initGame() {
@@ -233,11 +252,11 @@ void explosionSound() {
 	for(int i = 0; i < explosionDuration; i++) {
 		analogWrite(EYELEFT, 127);
 		delay(1);
-		analogWrite(EYELEFT, 0);
+		analogWrite(EYELEFT, 255);
 		tone(BUZZER, 50, 10);
 		analogWrite(EYERIGHT, 127);
 		delay(1);
-		analogWrite(EYERIGHT, 0);
+		analogWrite(EYERIGHT, 255);
 		tone(BUZZER, 50, 10);
 	}
 }
@@ -296,7 +315,10 @@ void gameOver() {
 }
 
 signed int backgroundControl(signed int shipMovX, signed int shipMovY) {
+	bgrndMovX = shipMovX;
+	bgrndMovY = shipMovY;
 	
+	return bgrndMovX, bgrndMovY;
 }
 
 void centerText(const char *Text, unsigned char Y)  {
@@ -334,7 +356,17 @@ void updateDisplay() {
 		display.drawBitmap(jack.locX, jack.locY, explosionBMP, explosionWidth, explosionHeight, WHITE);
 	}
 	
-	display.drawBitmap(bgrndPosX, bgrndPosY, bgrndBMP, bgrndWidth, bgrndHeight, WHITE);
+	display.drawBitmap(bgrnd1PosX, bgrnd1PosY, bgrnd1BMP, bgrndWidth, bgrndHeight, WHITE);
+	bgrnd1PosX -= bgrndMovSpeed;
+	if(bgrnd1PosX < -127) {
+		bgrnd1PosX = 0;
+	}
+	
+	display.drawBitmap(bgrnd2PosX, bgrnd2PosY, bgrnd2BMP, bgrndWidth, bgrndHeight, WHITE);
+	bgrnd2PosX -= bgrndMovSpeed;
+	if(bgrnd2PosX < 0) {
+		bgrnd2PosX = SCREEN_WIDTH;
+	}
 	
 	display.display();
 }
