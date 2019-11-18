@@ -69,9 +69,9 @@
   <avrgcc.compiler.directories.IncludePaths>
     <ListValues>
       <Value>../../../DC28_Jack_Attack_Badge</Value>
-      <Value>C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries/Adafruit_SSD1306</Value>
-      <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/SPI/src</Value>
+      <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src</Value>
+      <Value>C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries/Adafruit_SSD1306</Value>
       <Value>C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries/Adafruit-GFX-Library</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/EEPROM/src</Value>
       <Value>C:/Program Files (x86)/Arduino/libraries</Value>
@@ -111,9 +111,9 @@
   <avrgcccpp.compiler.directories.IncludePaths>
     <ListValues>
       <Value>../../../DC28_Jack_Attack_Badge</Value>
-      <Value>C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries/Adafruit_SSD1306</Value>
-      <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/SPI/src</Value>
+      <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src</Value>
+      <Value>C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries/Adafruit_SSD1306</Value>
       <Value>C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries/Adafruit-GFX-Library</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/EEPROM/src</Value>
       <Value>C:/Program Files (x86)/Arduino/libraries</Value>
@@ -170,9 +170,9 @@
   <avrgcc.compiler.directories.IncludePaths>
     <ListValues>
       <Value>../../../DC28_Jack_Attack_Badge</Value>
-      <Value>C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries/Adafruit_SSD1306</Value>
-      <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/SPI/src</Value>
+      <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src</Value>
+      <Value>C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries/Adafruit_SSD1306</Value>
       <Value>C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries/Adafruit-GFX-Library</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/EEPROM/src</Value>
       <Value>C:/Program Files (x86)/Arduino/libraries</Value>
@@ -212,9 +212,9 @@
   <avrgcccpp.compiler.directories.IncludePaths>
     <ListValues>
       <Value>../../../DC28_Jack_Attack_Badge</Value>
-      <Value>C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries/Adafruit_SSD1306</Value>
-      <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/SPI/src</Value>
+      <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src</Value>
+      <Value>C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries/Adafruit_SSD1306</Value>
       <Value>C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries/Adafruit-GFX-Library</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/EEPROM/src</Value>
       <Value>C:/Program Files (x86)/Arduino/libraries</Value>
