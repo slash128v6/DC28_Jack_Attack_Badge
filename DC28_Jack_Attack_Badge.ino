@@ -38,6 +38,7 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &SPI, OLED_DC, OLED_RESET,
 //
 void initDisplay();
 void initIO();
+void flashLight();
 void initGame();
 void shipControl();
 void laserControl();
@@ -55,7 +56,7 @@ void updateDisplay();
 // Global Variables and Defines
 //
 struct shipStruct ship;
-struct jackStruct laser;
+struct laserStruct laser;
 struct jackStruct jack;
 
 const int shipWidth = 8;
@@ -118,6 +119,8 @@ void setup()
 		highScore=0;
 		EEPROM.put(0,highScore);
 	}
+	
+	flashLight();
 }
 
 // Add the main program code into the continuous loop() function
@@ -156,6 +159,16 @@ void initIO() {
 	pinMode(BUZZER, OUTPUT);
 	analogWrite(EYELEFT, 255);
 	analogWrite(EYERIGHT, 255);
+}
+
+void flashLight() {
+	int x = digitalRead(UP);
+	if(x == 0) {
+		while(1){
+			analogWrite(EYELEFT, 0);
+			analogWrite(EYERIGHT, 0);
+		}
+	}
 }
 
 void initGame() {
@@ -280,7 +293,7 @@ void collisionControl() {
 		if((jack.locX <= (ship.locX + shipWidth)) && (ship.locX <= jack.locX)) {
 			if(((ship.locY + shipHeight) >= jack.locY) && (ship.locY <= (jack.locY + jackHeight))) {
 				ship.status = HIT;
-				playerLives -= 1;
+				//playerLives -= 1;
 				jack.status = HIT;
 				explosionSound();
 			}
