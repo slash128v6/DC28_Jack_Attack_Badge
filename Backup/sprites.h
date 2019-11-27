@@ -1,6 +1,5 @@
 #include <avr/pgmspace.h>
 
-/**
 struct shipStruct {
 	signed int locX;
 	signed int locY;
@@ -16,16 +15,6 @@ struct laserStruct {
 struct jackStruct {
 	signed int locX;
 	signed int locY;
-	unsigned int speed;
-	unsigned char status; // 0 = Alive, 1 = Hit, 2 = Dead
-};
-**/
-
-struct Object {
-	signed int locX;
-	signed int sizeX;
-	signed int locY;
-	signed int sizeY;
 	unsigned int speed;
 	unsigned char status; // 0 = Alive, 1 = Hit, 2 = Dead
 };
