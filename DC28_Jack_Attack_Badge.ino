@@ -33,9 +33,13 @@ void rgbFlashLight();
 boolean attractLoop();
 void initGame();
 void shipControl();
+void laserFired();
 void laserControl();
 void jackControl();
 void explosionSound();
+void shipExplosion();
+void jackExplosion();
+void bonusLife();
 int collisionCheck(struct Object *obj1, struct Object *obj2);
 void collisionControl();
 void gameOver();
@@ -84,8 +88,9 @@ float bgrnd2PosX = SCREEN_WIDTH;
 float bgrnd2PosY = 0;
 float bgrndMovSpeed = 0.1;
 
-boolean laserFired = false;
+//boolean laserFired = false;
 boolean attractStatus = true;
+boolean bonusLifeEligible = false;
 
 unsigned int highScore = 0;
 unsigned int explosionDuration = 50;
@@ -249,13 +254,16 @@ boolean attractLoop() {
 			display.display();
 			display.setTextSize(1);
 			
-			analogWrite(ledActive, 0);
+			analogWrite(ledActive, 223);
 			
 			delay(RGBCYCLE);
 			
 			buttonState = digitalRead(BUTTB);
 			if(!buttonState) {
 				buttonState = 0;
+				for(int j = 9; j < 12; j++) {
+					analogWrite(j, 255);
+				}
 				break;
 			}
 			
@@ -282,6 +290,9 @@ boolean attractLoop() {
 			buttonState = digitalRead(BUTTB);
 			if(!buttonState) {
 				buttonState = 0;
+				for(int j = 9; j < 12; j++) {
+					analogWrite(j, 255);
+				}
 				break;
 			}
 		}
@@ -292,23 +303,38 @@ boolean attractLoop() {
 
 		// Press Start Screen
 		for(int i = 0; i < MAXLOOP; i++) {
+			/**
 			display.clearDisplay();
 			display.setTextColor(WHITE);
 			display.setTextSize(1);
 			centerText("Press Start!", 30);
 			display.display();
+			**/
+
+			display.clearDisplay();
+			display.setTextColor(WHITE);
+			display.setTextSize(1);
+			centerText("BUTTA = Fire!", 4);
+			centerText("BUTTB = Start!", 16);
+			centerText("Don't let Jack slip", 28);
+			centerText("by to your base!", 38);
+			centerText("Bonus Life Every 1000", 52);
+			display.display();
 
 			for(int i = 9; i < 12; i++) {
-				analogWrite(i, 0);
+				analogWrite(i, 223);
 			}
 
 			delay(100);
 			buttonState = digitalRead(BUTTB);
 			if(!buttonState) {
 				buttonState = 0;
+				for(int j = 9; j < 12; j++) {
+					analogWrite(j, 255);
+				}
 				break;
 			}
-			display.clearDisplay();
+			//display.clearDisplay();
 			display.display();
 
 			for(int i = 9; i < 12; i++) {
@@ -319,6 +345,9 @@ boolean attractLoop() {
 			buttonState = digitalRead(BUTTB);
 			if(!buttonState) {
 				buttonState = 0;
+				for(int j = 9; j < 12; j++) {
+					analogWrite(j, 255);
+				}
 				break;
 			}
 		}
@@ -330,6 +359,9 @@ boolean attractLoop() {
 		**/
 		
 		if(!buttonState) {
+			for(int j = 9; j < 12; j++) {
+				analogWrite(j, 255);
+			}
 			break;
 		}
 		
@@ -338,12 +370,14 @@ boolean attractLoop() {
 }
 
 void initGame() {
+	
 	ship.locX = shipStartX;
 	ship.sizeX = shipWidth;
 	ship.locY = shipStartY;
 	ship.sizeY = shipHeight;
 	ship.speed = 1;
 	ship.status = ALIVE;
+	bonusLifeEligible = false;
 	
 	laser.sizeX = laserWidth;
 	laser.sizeY = laserHeight;
@@ -401,6 +435,20 @@ void shipControl() {
 		laser.status = ALIVE;
 		laser.locX = ship.locX;
 		laser.locY = ship.locY + (shipHeight/2);
+		laserFired();
+	}
+	
+	if(playerScore % 1000 == 0 && bonusLifeEligible == true) {
+		bonusLife();
+	}
+}
+
+void laserFired() {
+	for(int i = 0; i < explosionDuration; i++) {
+		analogWrite(GREEN, 127);
+		delay(1);
+		analogWrite(GREEN, 255);
+		tone(BUZZER, 100, 10);
 	}
 }
 
@@ -432,6 +480,8 @@ void jackControl() {
 			jack.locY = random(8, 58);
 			jack.speed = random(1, 5);
 			jack.status == DEAD;
+			playerLives -= 1;
+			shipExplosion();
 		}
 	}
 }
@@ -453,6 +503,55 @@ void explosionSound() {
 	}
 }
 
+void shipExplosion() {
+	for(int i = 0; i < explosionDuration; i++) {
+		analogWrite(RED, 127);
+		delay(1);
+		analogWrite(RED, 255);
+		tone(BUZZER, 50, 10);
+		analogWrite(RED, 127);
+		delay(1);
+		analogWrite(RED, 255);
+		tone(BUZZER, 50, 10);
+		analogWrite(RED, 127);
+		delay(1);
+		analogWrite(RED, 255);
+		tone(BUZZER, 50, 10);
+	}
+}
+
+void jackExplosion() {
+	for(int i = 0; i < explosionDuration; i++) {
+		analogWrite(BLUE, 127);
+		delay(1);
+		analogWrite(BLUE, 255);
+		tone(BUZZER, 50, 10);
+		analogWrite(BLUE, 127);
+		delay(1);
+		analogWrite(BLUE, 255);
+		tone(BUZZER, 50, 10);
+		analogWrite(BLUE, 127);
+		delay(1);
+		analogWrite(BLUE, 255);
+		tone(BUZZER, 50, 10);
+	}
+}
+
+void bonusLife() {
+	for(int i = 0; i < explosionDuration; i++) {
+		for(int j = 9; j < 12; j++) {
+		analogWrite(j, 127);
+		delay(1);
+		analogWrite(j, 255);
+		tone(BUZZER, 200, 10);
+		}
+	}
+
+	playerLives += 1;
+	bonusLifeEligible = false;
+
+}
+
 int collisionCheck(struct Object *obj1, struct Object *obj2) {
 
 	if(obj1->status == ALIVE && obj2->status ==ALIVE) {
@@ -470,14 +569,15 @@ void collisionControl() {
 		ship.status = HIT;
 		playerLives -= 1;
 		jack.status = HIT;
-		explosionSound();
+		shipExplosion();
 	}
 	laserandjackCollision = collisionCheck(&laser, &jack);
 	if(laserandjackCollision) {
 		laser.status = DEAD;
 		jack.status = HIT;
 		playerScore += 10;
-		explosionSound();
+		bonusLifeEligible = true;
+		jackExplosion();
 	}
 	
 	/**
@@ -519,11 +619,11 @@ void gameOver() {
 		display.clearDisplay();
 		display.setTextSize(1);
 		display.setTextColor(WHITE);
-		centerText("GAME OVER", 16);
-		display.setCursor(29, 32);
+		centerText("GAME OVER", 12);
+		display.setCursor(35, 28);
 		display.print("Score: ");
 		display.print(playerScore);
-		display.setCursor(4, 48);
+		display.setCursor(4, 44);
 		display.print("High Score: ");
 		display.print(highScore);
 		display.display();
@@ -557,29 +657,60 @@ void updateDisplay() {
 	display.setCursor(0,0);
 	display.setTextSize(1);
 	display.setTextColor(WHITE);
-
+	
+	
+	/**
 	if(playerScore < 10) {
-		sprintf(buffer, "Lives: %d  Score:    %d", playerLives, playerScore);
+	sprintf(buffer, "Lives: %d  Score:    %d", playerLives, playerScore);
 	}
 	if(playerScore > 9 && playerScore < 100) {
-		sprintf(buffer, "Lives: %d  Score:   %d", playerLives, playerScore);
+	sprintf(buffer, "Lives: %d  Score:   %d", playerLives, playerScore);
 	}
 	if(playerScore > 99 && playerScore < 1000) {
-		sprintf(buffer, "Lives: %d  Score:  %d", playerLives, playerScore);
+	sprintf(buffer, "Lives: %d  Score:  %d", playerLives, playerScore);
 	}
 	if(playerScore > 10000) {
-		sprintf(buffer, "Lives: %d  Score: %d", playerLives, playerScore);
+	sprintf(buffer, "Lives: %d  Score: %d", playerLives, playerScore);
+	}
+	**/
+	
+
+	if(playerScore < 10) {
+		sprintf(buffer, "                    %d", playerScore);
+	}
+	if(playerScore >= 10 && playerScore <= 99) {
+		sprintf(buffer, "                   %d", playerScore);
+	}
+	if(playerScore >= 100 && playerScore <= 999) {
+		sprintf(buffer, "                  %d", playerScore);
+	}
+	if(playerScore >= 1000) {
+		sprintf(buffer, "                 %d", playerScore);
+	}
+	
+	/**
+	if(playerScore < 10) {
+		display.setCursor(124, 0);
+	}
+	if(playerScore >= 10 && playerScore <= 99) {
+		display.setCursor(116, 0);
+	}
+	if(playerScore >= 100 && playerScore <= 999) {
+		display.setCursor(110, 0);
+	}
+	if(playerScore >= 1000) {
+		display.setCursor(100, 0);
 	}
 
-	display.print(buffer);
-	
-	display.setCursor(10, 10);
 	display.print(playerScore);
 	
-
+	**/
+	
+	display.print(buffer);
+	
 	for(int i = 0; i < playerLives; i++) {
 		
-		display.drawBitmap(((i*shipWidth)+2), (SCREEN_HEIGHT-shipHeight), shipBMP, shipWidth, shipHeight, WHITE);
+		display.drawBitmap(i*((shipWidth/2)+2), 0, shipSmallBMP, shipWidth/2, shipHeight/2, WHITE);
 	}
 	
 
@@ -605,13 +736,13 @@ void updateDisplay() {
 		display.drawBitmap(jack.locX, jack.locY, explosionBMP, explosionWidth, explosionHeight, WHITE);
 	}
 	
-	display.drawBitmap(bgrnd1PosX, bgrnd1PosY, bgrnd1BMP, bgrndWidth, bgrndHeight, WHITE);
+	display.drawBitmap(bgrnd1PosX, bgrnd1PosY+8, bgrnd1BMP, bgrndWidth, bgrndHeight, WHITE);
 	bgrnd1PosX -= bgrndMovSpeed;
 	if(bgrnd1PosX < -127) {
 		bgrnd1PosX = 0;
 	}
 	
-	display.drawBitmap(bgrnd2PosX, bgrnd2PosY, bgrnd2BMP, bgrndWidth, bgrndHeight, WHITE);
+	display.drawBitmap(bgrnd2PosX, bgrnd2PosY+8, bgrnd2BMP, bgrndWidth, bgrndHeight, WHITE);
 	bgrnd2PosX -= bgrndMovSpeed;
 	if(bgrnd2PosX < 0) {
 		bgrnd2PosX = SCREEN_WIDTH;
