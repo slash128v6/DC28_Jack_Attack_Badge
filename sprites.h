@@ -1,25 +1,13 @@
+// Graphics and objects
+//
+/*
+Name:       DC28_Jack_Attack_Badge.ino
+Created:	8/11/2019 9:25:15 PM
+Author:     slash128
+Notes:      Arduboy compatible
+*/
+
 #include <avr/pgmspace.h>
-
-/**
-struct shipStruct {
-	signed int locX;
-	signed int locY;
-	unsigned char status; // 0 = Alive, 1 = Hit, 2 = Dead
-};
-
-struct laserStruct {
-	signed int locX;
-	signed int locY;
-	unsigned char status; // 0 = Alive, 1 = Hit, 2 = Dead
-};
-
-struct jackStruct {
-	signed int locX;
-	signed int locY;
-	unsigned int speed;
-	unsigned char status; // 0 = Alive, 1 = Hit, 2 = Dead
-};
-**/
 
 struct Object {
 	signed int locX;

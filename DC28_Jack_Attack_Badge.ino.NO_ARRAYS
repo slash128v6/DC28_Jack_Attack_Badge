@@ -37,6 +37,7 @@ void laserControl();
 void jackControl();
 void shipExplosion();
 void jackExplosion();
+void levelUp();
 void bonusLife();
 int collisionCheck(struct Object *obj1, struct Object *obj2);
 void collisionControl();
@@ -71,6 +72,10 @@ signed int jackPosX = SCREEN_WIDTH;
 signed int jackPosY = ((SCREEN_HEIGHT / 2) - (jackHeight / 2));
 signed int bgrndMovX;
 signed int bgrndMovY;
+signed int currentLaser;
+signed int laserLevel;
+signed int currentJack;
+signed int jackLevel;
 float bgrnd1PosX = 0;
 float bgrnd1PosY = 0;
 float bgrnd2PosX = SCREEN_WIDTH;
@@ -79,9 +84,13 @@ float bgrndMovSpeed = 0.1;
 
 boolean attractStatus = true;
 boolean bonusLifeEligible = false;
+boolean levelUpEligible = false;
 
 unsigned int highScore = 0;
 unsigned int explosionDuration = 50;
+
+int maxLasers;
+int maxJacks;
 
 int shipandjackCollision = 0;
 int laserandjackCollision = 0;
@@ -101,8 +110,8 @@ int laserandjackCollision = 0;
 #define HIT 1
 #define DEAD 2
 #define MAXLEVELS 10
-#define MAXLASERS 1
-#define MAXJACKS 1
+#define MAXLASERS 5
+#define MAXJACKS 5
 #define MAXLOOP 25
 #define RGBCYCLE 100
 
@@ -310,13 +319,19 @@ void initGame() {
 	playerLevel = 0;
 	playerScore = 0;
 	bonusLifeEligible = false;
+	levelUpEligible = false;
 	
+	currentLaser = 0;
+	laserLevel = 0;
+		laser.sizeX = laserWidth;
+		laser.sizeY = laserHeight;
+		laser.speed = laserSpeed;
+		laser.status = DEAD;
 
-	laser.sizeX = laserWidth;
-	laser.sizeY = laserHeight;
-	laser.speed = laserSpeed;
-	laser.status = DEAD;
+
 	
+	currentJack = 0;
+	jackLevel = 0;
 
 	jack.locX = jackPosX;
 	jack.sizeX = jackWidth;
@@ -353,14 +368,14 @@ void shipControl() {
 	if(digitalRead(LEFT) == 0) {
 		ship.locX -= shipSpeed;
 		if(ship.locX < 0) {
-			ship.locX = 128;
+			ship.locX = 0;
 		}
 	}
 	
 	if(digitalRead(RIGHT) == 0) {
 		ship.locX += shipSpeed;
 		if(ship.locX > SCREEN_WIDTH) {
-			ship.locX = 0;
+			ship.locX = SCREEN_WIDTH;
 		}
 	}
 	
@@ -369,8 +384,18 @@ void shipControl() {
 		laser.status = ALIVE;
 		laser.locX = ship.locX;
 		laser.locY = ship.locY + (shipHeight/2);
+		currentLaser++;
+		if(currentLaser > (MAXLASERS - 1)) {
+			currentLaser = 0;
+		}
 		laserFired();
 	}
+	
+	/**
+	if(playerScore % 100 == 0 && levelUpEligible == true) {
+		levelUp();
+	}
+	**/
 	
 	if(playerScore % 1000 == 0 && bonusLifeEligible == true) {
 		bonusLife();
@@ -389,14 +414,14 @@ void laserFired() {
 
 void laserControl() {
 	
-
-	if(laser.status == ALIVE) {
-		laser.locX += laserSpeed;
-		if(laser.locX > SCREEN_WIDTH) {
-			laser.status = DEAD;
+	for(int i = 0; i < MAXLASERS; i++) {
+		if(laser.status == ALIVE) {
+			laser.locX += laserSpeed;
+			if(laser.locX > SCREEN_WIDTH) {
+				laser.status = DEAD;
+			}
 		}
 	}
-
 }
 
 void jackControl() {
@@ -462,6 +487,42 @@ void jackExplosion() {
 	}
 }
 
+void levelUp() {
+	for(int i = 0; i < explosionDuration; i++) {
+		for(int j = 9; j < 12; j++) {
+			analogWrite(j, 127);
+			delay(1);
+			analogWrite(j, 255);
+			tone(BUZZER, 200, 10);
+		}
+	}
+	
+	playerLevel++;
+	if(playerLevel > MAXLEVELS -1) {
+		playerLevel = MAXLEVELS;
+	}
+	laserLevel++;
+	if(laserLevel > MAXLASERS -1) {
+		laserLevel = MAXLASERS;
+	}
+	jackLevel++;
+	if(jackLevel > MAXJACKS - 1) {
+		jackLevel = MAXJACKS;
+	}
+	levelUpEligible = false;
+	
+	char buffer[21];
+	
+	sprintf("          Level %d", playerLevel);
+	display.setTextColor(WHITE);
+	display.print(buffer);
+	for(int i = 0; i < MAXLOOP; i++) {
+		display.display();
+		delay(100);
+		display.clearDisplay();
+		delay(100);
+	}
+}
 
 void bonusLife() {
 	for(int i = 0; i < explosionDuration; i++) {
@@ -499,16 +560,19 @@ void collisionControl() {
 
 	}
 	
-	laserandjackCollision = collisionCheck(&laser, &jack);
-	if(laserandjackCollision) {
-		laser.status = DEAD;
-		jack.status = HIT;
-		playerScore += 10;
-		bonusLifeEligible = true;
-		jackExplosion();
-	}
-	
+	for(int i = 0; i < MAXLASERS; i++) {
 
+		laserandjackCollision = collisionCheck(&laser, &jack);
+		if(laserandjackCollision) {
+			laser.status = DEAD;
+			jack.status = HIT;
+			playerScore += 10;
+			bonusLifeEligible = true;
+			levelUpEligible= true;
+			jackExplosion();
+		}
+		
+	}
 
 }
 
@@ -538,7 +602,8 @@ void gameOver() {
 	playerLives = 3;
 	attractStatus = true;
 	bonusLifeEligible = false;
-
+	currentLaser = 0;
+	currentJack = 0;
 }
 
 
@@ -575,6 +640,7 @@ void updateDisplay() {
 	// Display variables for debugging
 	display.setCursor(0, 8);
 	display.setTextColor(BLACK);
+	display.print(currentLaser);
 	display.setTextColor(WHITE);
 	
 	// Draw remaining lives
@@ -593,11 +659,11 @@ void updateDisplay() {
 	}
 	
 	// Draw lasers
-
-	if(laser.status == ALIVE) {
-		display.drawBitmap(laser.locX, laser.locY, laserBMP, laserWidth, laserHeight, WHITE);
+	for(int i = 0; i < MAXLASERS; i++) {
+		if(laser.status == ALIVE) {
+			display.drawBitmap(laser.locX, laser.locY, laserBMP, laserWidth, laserHeight, WHITE);
+		}
 	}
-
 	
 	
 	// Draw jacks
@@ -607,7 +673,7 @@ void updateDisplay() {
 
 	if(jack.status == HIT) {
 		display.drawBitmap(jack.locX, jack.locY, explosionBMP, explosionWidth, explosionHeight, WHITE);
-		
+	
 	}
 
 	// Draw background
