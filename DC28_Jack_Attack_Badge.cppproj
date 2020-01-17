@@ -131,7 +131,7 @@
     <VMSETTING_IncludePaths>../../../DC28_Jack_Attack_Badge;C:/Program Files (x86)/Arduino/libraries;C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries;C:/Program Files (x86)/Arduino/hardware/arduino/avr/cores/arduino;C:/Program Files (x86)/Arduino/hardware/arduino/avr/variants/leonardo;C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include;C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include/avr;C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.8.1/include;C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.9.2/include;C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.9.3/include;C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries/Adafruit_SSD1306;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/SPI/src;C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries/Adafruit-GFX-Library;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/EEPROM/src;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src/utility;C:/Program Files (x86)/Arduino/hardware/arduino/avr/variants/standard;C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries/ToneLibrary/src;</VMSETTING_IncludePaths>
     <VisualMicroSettings>
       <VisualMicroSettings>
-        <arduino.upload.port>COM6</arduino.upload.port>
+        <arduino.upload.port>COM4</arduino.upload.port>
         <arduino.board.name>leonardo</arduino.board.name>
         <arduino.board.desc>Arduino Leonardo</arduino.board.desc>
         <arduino.board.property_bag>name=Arduino Leonardo
@@ -562,7 +562,7 @@ build.arch=AVR
     <VMSETTING_IncludePaths>../../../DC28_Jack_Attack_Badge;C:/Program Files (x86)/Arduino/libraries;C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries;C:/Program Files (x86)/Arduino/hardware/arduino/avr/cores/arduino;C:/Program Files (x86)/Arduino/hardware/arduino/avr/variants/leonardo;C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include;C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include/avr;C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.8.1/include;C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.9.2/include;C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.9.3/include;C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries/Adafruit_SSD1306;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/SPI/src;C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries/Adafruit-GFX-Library;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/EEPROM/src;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src/utility;C:/Program Files (x86)/Arduino/hardware/arduino/avr/variants/standard;C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries/ToneLibrary/src;</VMSETTING_IncludePaths>
     <VisualMicroSettings>
       <VisualMicroSettings>
-        <arduino.upload.port>COM6</arduino.upload.port>
+        <arduino.upload.port>COM4</arduino.upload.port>
         <arduino.board.name>leonardo</arduino.board.name>
         <arduino.board.desc>Arduino Leonardo</arduino.board.desc>
         <arduino.board.property_bag>name=Arduino Leonardo

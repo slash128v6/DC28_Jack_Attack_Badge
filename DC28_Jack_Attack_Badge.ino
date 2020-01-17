@@ -92,6 +92,7 @@ unsigned int explosionDuration = 50;
 int maxLasers;
 int maxJacks;
 unsigned int levelIncrement;
+unsigned int bonusLifeScore = 500;
 
 int shipandjackCollision = 0;
 int laserandjackCollision = 0;
@@ -113,7 +114,7 @@ int laserandjackCollision = 0;
 #define MAXLEVELS 5
 #define MAXLASERS 5
 #define MAXJACKS 5
-#define MAXLOOP 25
+#define ATTRACTLOOP 25
 #define LEVELLOOP 10
 #define RGBCYCLE 100
 
@@ -152,7 +153,7 @@ void loop()
 	}
 	
 	
-	if(playerScore % 1000 == 0 && bonusLifeEligible == true) {
+	if(playerScore % bonusLifeScore == 0 && bonusLifeEligible == true) {
 		bonusLife();
 	}
 	
@@ -203,7 +204,7 @@ boolean attractLoop() {
 
 	while(1) {
 		// Title Screen
-		for(int i = 0; i < MAXLOOP; i++) {
+		for(int i = 0; i < ATTRACTLOOP; i++) {
 
 			display.clearDisplay();
 			display.setTextSize(2);
@@ -263,7 +264,7 @@ boolean attractLoop() {
 		}
 
 		// Press Start Screen
-		for(int i = 0; i < MAXLOOP; i++) {
+		for(int i = 0; i < ATTRACTLOOP; i++) {
 
 			display.clearDisplay();
 			display.setTextColor(WHITE);
@@ -272,7 +273,7 @@ boolean attractLoop() {
 			centerText("BUTTB = Start!", 16);
 			centerText("Don't let Jack slip", 28);
 			centerText("by to your base!", 38);
-			centerText("Bonus Life Every 1000", 52);
+			centerText("Bonus Life Every 500", 52);
 			display.display();
 
 			for(int i = 9; i < 12; i++) {
@@ -329,7 +330,8 @@ void initGame() {
 	playerLives = 3;
 	playerLevel = 0;
 	playerScore = 0;
-	levelIncrement = 100;
+	levelIncrement = 200;
+	//bonusLifeScore = 1000;
 	bonusLifeEligible = false;
 	levelUpEligible = true;
 	
@@ -514,7 +516,7 @@ void levelUp() {
 	levelUpEligible = false;
 	
 	if(playerLevel > 1) {
-		levelIncrement *= 3;
+		levelIncrement *= 2;
 	}
 	
 	char bufferLevel[21];
@@ -664,7 +666,7 @@ void gameOver() {
 	jackLevel = 0;
 	attractStatus = true;
 	levelUpEligible = true;
-	levelIncrement = 100;
+	levelIncrement = 200;
 	bonusLifeEligible = false;
 	currentLaser = 0;
 	currentJack = 0;
