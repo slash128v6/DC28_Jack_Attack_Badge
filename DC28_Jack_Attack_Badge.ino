@@ -91,6 +91,7 @@ unsigned int explosionDuration = 50;
 
 int maxLasers;
 int maxJacks;
+unsigned int levelIncrement;
 
 int shipandjackCollision = 0;
 int laserandjackCollision = 0;
@@ -109,7 +110,7 @@ int laserandjackCollision = 0;
 #define ALIVE 0
 #define HIT 1
 #define DEAD 2
-#define MAXLEVELS 10
+#define MAXLEVELS 5
 #define MAXLASERS 5
 #define MAXJACKS 5
 #define MAXLOOP 25
@@ -146,7 +147,7 @@ void loop()
 		attractLoop();
 	}
 	
-	if(playerScore % 100 == 0 && levelUpEligible == true) {
+	if(playerScore % levelIncrement == 0 && levelUpEligible == true) {
 		levelUp();
 	}
 	
@@ -328,6 +329,7 @@ void initGame() {
 	playerLives = 3;
 	playerLevel = 0;
 	playerScore = 0;
+	levelIncrement = 100;
 	bonusLifeEligible = false;
 	levelUpEligible = true;
 	
@@ -511,6 +513,10 @@ void levelUp() {
 	}
 	levelUpEligible = false;
 	
+	if(playerLevel > 1) {
+		levelIncrement *= 3;
+	}
+	
 	char bufferLevel[21];
 	
 	int ledActive = 9;
@@ -618,7 +624,9 @@ void collisionControl() {
 				jack[j].status = HIT;
 				playerScore += 10;
 				bonusLifeEligible = true;
-				levelUpEligible= true;
+				if(playerLevel < MAXLEVELS) {
+					levelUpEligible= true;
+				}
 				jackExplosion();
 			}
 		}
@@ -656,6 +664,7 @@ void gameOver() {
 	jackLevel = 0;
 	attractStatus = true;
 	levelUpEligible = true;
+	levelIncrement = 100;
 	bonusLifeEligible = false;
 	currentLaser = 0;
 	currentJack = 0;
