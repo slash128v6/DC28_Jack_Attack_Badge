@@ -41,6 +41,7 @@ void levelUp();
 void bonusLife();
 int collisionCheck(struct Object *obj1, struct Object *obj2);
 void collisionControl();
+void resetGame();
 void gameOver();
 void centerText(const char *Text, unsigned char Y);
 void updateDisplay();
@@ -416,8 +417,9 @@ void laserFired() {
 		analogWrite(GREEN, 127);
 		delay(1);
 		analogWrite(GREEN, 255);
-		tone(BUZZER, 750, 10);
+
 	}
+		tone(BUZZER, 750, 100);
 }
 
 void laserControl() {
@@ -469,7 +471,8 @@ void shipExplosion() {
 		analogWrite(RED, 127);
 		delay(1);
 		analogWrite(RED, 255);
-		tone(BUZZER, 50, 10);
+
+		/**
 		analogWrite(RED, 127);
 		delay(1);
 		analogWrite(RED, 255);
@@ -478,7 +481,9 @@ void shipExplosion() {
 		delay(1);
 		analogWrite(RED, 255);
 		tone(BUZZER, 50, 10);
+		**/
 	}
+			tone(BUZZER, 50, 100);
 }
 
 void jackExplosion() {
@@ -486,7 +491,8 @@ void jackExplosion() {
 		analogWrite(BLUE, 127);
 		delay(1);
 		analogWrite(BLUE, 255);
-		tone(BUZZER, 50, 10);
+
+		/**
 		analogWrite(BLUE, 127);
 		delay(1);
 		analogWrite(BLUE, 255);
@@ -495,7 +501,13 @@ void jackExplosion() {
 		delay(1);
 		analogWrite(BLUE, 255);
 		tone(BUZZER, 50, 10);
+		analogWrite(BLUE, 127);
+		delay(1);
+		analogWrite(BLUE, 255);
+		tone(BUZZER, 50, 10);
+		**/
 	}
+		tone(BUZZER, 50, 100);
 }
 
 void levelUp() {
@@ -636,6 +648,20 @@ void collisionControl() {
 
 }
 
+void resetGame() {
+	playerScore = 0;
+	playerLives = 3;
+	playerLevel = 0;
+	laserLevel = 0;
+	jackLevel = 0;
+	attractStatus = true;
+	levelUpEligible = true;
+	levelIncrement = 200;
+	bonusLifeEligible = false;
+	currentLaser = 0;
+	currentJack = 0;
+}
+
 void gameOver() {
 	if(playerScore > highScore) {
 		highScore = playerScore;
@@ -648,17 +674,19 @@ void gameOver() {
 		display.setTextSize(1);
 		display.setTextColor(WHITE);
 		centerText("GAME OVER", 12);
-		display.setCursor(35, 28);
+		display.setCursor(30, 28);
 		display.print("Score: ");
 		display.print(playerScore);
-		display.setCursor(4, 44);
-		display.print("High Score: ");
+		display.setCursor(35, 44);
+		display.print("Best: ");
 		display.print(highScore);
 		display.display();
 		restart = digitalRead(BUTTB);
 	}
 
+	resetGame();
 
+	/**
 	playerScore = 0;
 	playerLives = 3;
 	playerLevel = 0;
@@ -670,7 +698,7 @@ void gameOver() {
 	bonusLifeEligible = false;
 	currentLaser = 0;
 	currentJack = 0;
-	
+	**/
 
 }
 
@@ -706,10 +734,12 @@ void updateDisplay() {
 	display.print(bufferScore);
 	
 	// Display variables for debugging
+	/**
 	display.setCursor(0, 8);
 	display.setTextColor(BLACK);
 	display.print(currentLaser);
 	display.setTextColor(WHITE);
+	**/
 	
 	// Draw remaining lives
 	for(int i = 0; i < playerLives; i++) {
