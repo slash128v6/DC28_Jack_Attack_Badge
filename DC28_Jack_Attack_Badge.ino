@@ -39,7 +39,7 @@ void shipExplosion();
 void jackExplosion();
 void levelUp();
 void bonusLife();
-int collisionCheck(struct Object *obj1, struct Object *obj2);
+uint8_t collisionCheck(struct Object *obj1, struct Object *obj2);
 void collisionControl();
 void resetGame();
 void gameOver();
@@ -51,32 +51,40 @@ void updateDisplay();
 
 // Global Variables and Defines
 //
-const int shipWidth = 8;
-const int shipHeight = 16;
-const int shipSpeed = 4;
-const int laserWidth = 8;
-const int laserHeight = 2;
-const int laserSpeed = 6;
-const int jackWidth = 16;
-const int jackHeight = 16;
-const int explosionWidth = 16;
-const int explosionHeight = 8;
-const int bgrndWidth = 128;
-const int bgrndHeight = 64;
+const uint8_t shipWidth = 8;
+const uint8_t shipHeight = 16;
+const uint8_t shipSpeed = 4;
+const uint8_t laserWidth = 8;
+const uint8_t laserHeight = 2;
+const uint8_t laserSpeed = 6;
+const uint8_t jackWidth = 16;
+const uint8_t jackHeight = 16;
+const uint8_t explosionWidth = 16;
+const uint8_t explosionHeight = 8;
+const uint8_t bgrndWidth = 128;
+const uint8_t bgrndHeight = 64;
 
-signed int shipStartX = (SCREEN_WIDTH / 5);
-signed int shipStartY = ((SCREEN_HEIGHT / 2) - (shipHeight / 2));
-signed int playerLives;
-signed int playerLevel;
-signed int playerScore;
-signed int jackPosX = SCREEN_WIDTH;
-signed int jackPosY = ((SCREEN_HEIGHT / 2) - (jackHeight / 2));
-signed int bgrndMovX;
-signed int bgrndMovY;
-signed int currentLaser;
-signed int laserLevel;
-signed int currentJack;
-signed int jackLevel;
+uint8_t shipStartX = (SCREEN_WIDTH / 5);
+uint8_t shipStartY = ((SCREEN_HEIGHT / 2) - (shipHeight / 2));
+int8_t playerLives;
+uint8_t playerLevel;
+uint16_t playerScore;
+int16_t jackPosX = SCREEN_WIDTH;
+int8_t jackPosY = ((SCREEN_HEIGHT / 2) - (jackHeight / 2));
+uint8_t bgrndMovX;
+uint8_t bgrndMovY;
+uint8_t currentLaser;
+uint8_t laserLevel;
+uint8_t currentJack;
+uint8_t jackLevel;
+uint8_t shipandjackCollision = 0;
+uint8_t laserandjackCollision = 0;
+uint8_t maxLasers;
+uint8_t maxJacks;
+uint16_t highScore = 0;
+uint8_t explosionDuration = 50;
+uint16_t levelIncrement;
+uint16_t bonusLifeScore;
 float bgrnd1PosX = 0;
 float bgrnd1PosY = 0;
 float bgrnd2PosX = SCREEN_WIDTH;
@@ -86,17 +94,6 @@ float bgrndMovSpeed = 0.1;
 boolean attractStatus = true;
 boolean bonusLifeEligible = false;
 boolean levelUpEligible = false;
-
-unsigned int highScore = 0;
-unsigned int explosionDuration = 50;
-
-int maxLasers;
-int maxJacks;
-unsigned int levelIncrement;
-unsigned int bonusLifeScore = 500;
-
-int shipandjackCollision = 0;
-int laserandjackCollision = 0;
 
 #define UP A0
 #define RIGHT A1
@@ -123,11 +120,9 @@ struct Object ship;
 struct Object laser[MAXLASERS];
 struct Object jack[MAXJACKS];
 
-
 // The setup() function runs once each time the micro-controller starts
 void setup()
 {
-	
 	initDisplay();
 	initIO();
 	initGame();
@@ -139,12 +134,17 @@ void setup()
 		EEPROM.put(0,highScore);
 	}
 	
+	/**
+	//Reset EEPROM
+			highScore=0;
+			EEPROM.put(0,highScore);
+	**/
+	
 }
 
 // Add the main program code into the continuous loop() function
 void loop()
 {
-	
 	if(attractStatus) {
 		attractLoop();
 	}
@@ -190,7 +190,7 @@ void initIO() {
 	pinMode(RED, OUTPUT);
 	pinMode(GREEN, OUTPUT);
 	pinMode(BUZZER, OUTPUT);
-	for(int i = 9; i < 12; i++) {
+	for(uint8_t i = 9; i < 12; i++) {
 		analogWrite(i, 255);
 	}
 }
@@ -198,14 +198,14 @@ void initIO() {
 // Loop between Title and Press Start screens
 boolean attractLoop() {
 
-	int buttonState = 1;
-	int ledActive = 9;
+	uint8_t buttonState = 1;
+	uint8_t ledActive = 9;
 	
 	//loopStart:
 
 	while(1) {
 		// Title Screen
-		for(int i = 0; i < ATTRACTLOOP; i++) {
+		for(uint8_t i = 0; i < ATTRACTLOOP; i++) {
 
 			display.clearDisplay();
 			display.setTextSize(2);
@@ -224,7 +224,7 @@ boolean attractLoop() {
 			buttonState = digitalRead(BUTTB);
 			if(!buttonState) {
 				buttonState = 0;
-				for(int j = 9; j < 12; j++) {
+				for(uint8_t j = 9; j < 12; j++) {
 					analogWrite(j, 255);
 				}
 				break;
@@ -253,7 +253,7 @@ boolean attractLoop() {
 			buttonState = digitalRead(BUTTB);
 			if(!buttonState) {
 				buttonState = 0;
-				for(int j = 9; j < 12; j++) {
+				for(uint8_t j = 9; j < 12; j++) {
 					analogWrite(j, 255);
 				}
 				break;
@@ -265,7 +265,7 @@ boolean attractLoop() {
 		}
 
 		// Press Start Screen
-		for(int i = 0; i < ATTRACTLOOP; i++) {
+		for(uint8_t i = 0; i < ATTRACTLOOP; i++) {
 
 			display.clearDisplay();
 			display.setTextColor(WHITE);
@@ -277,7 +277,7 @@ boolean attractLoop() {
 			centerText("Bonus Life Every 500", 52);
 			display.display();
 
-			for(int i = 9; i < 12; i++) {
+			for(uint8_t i = 9; i < 12; i++) {
 				analogWrite(i, 223);
 			}
 
@@ -285,7 +285,7 @@ boolean attractLoop() {
 			buttonState = digitalRead(BUTTB);
 			if(!buttonState) {
 				buttonState = 0;
-				for(int j = 9; j < 12; j++) {
+				for(uint8_t j = 9; j < 12; j++) {
 					analogWrite(j, 255);
 				}
 				break;
@@ -293,7 +293,7 @@ boolean attractLoop() {
 			//display.clearDisplay();
 			display.display();
 
-			for(int i = 9; i < 12; i++) {
+			for(uint8_t i = 9; i < 12; i++) {
 				analogWrite(i, 255);
 			}
 
@@ -301,7 +301,7 @@ boolean attractLoop() {
 			buttonState = digitalRead(BUTTB);
 			if(!buttonState) {
 				buttonState = 0;
-				for(int j = 9; j < 12; j++) {
+				for(uint8_t j = 9; j < 12; j++) {
 					analogWrite(j, 255);
 				}
 				break;
@@ -309,7 +309,7 @@ boolean attractLoop() {
 		}
 		
 		if(!buttonState) {
-			for(int j = 9; j < 12; j++) {
+			for(uint8_t j = 9; j < 12; j++) {
 				analogWrite(j, 255);
 			}
 			break;
@@ -332,13 +332,13 @@ void initGame() {
 	playerLevel = 0;
 	playerScore = 0;
 	levelIncrement = 200;
-	//bonusLifeScore = 1000;
+	bonusLifeScore = 500;
 	bonusLifeEligible = false;
 	levelUpEligible = true;
 	
 	currentLaser = 0;
 	laserLevel = 0;
-	for(int i = 0; i < MAXLASERS; i++) {
+	for(uint8_t i = 0; i < MAXLASERS; i++) {
 		laser[i].sizeX = laserWidth;
 		laser[i].sizeY = laserHeight;
 		laser[i].speed = laserSpeed;
@@ -348,7 +348,7 @@ void initGame() {
 	
 	currentJack = 0;
 	jackLevel = 0;
-	for(int i = 0; i < MAXJACKS; i++) {
+	for(uint8_t i = 0; i < MAXJACKS; i++) {
 		jack[i].locX = jackPosX;
 		jack[i].sizeX = jackWidth;
 		jack[i].locY = random(8, 58);
@@ -413,18 +413,16 @@ void shipControl() {
 }
 
 void laserFired() {
-	for(int i = 0; i < explosionDuration; i++) {
+	for(uint8_t i = 0; i < explosionDuration; i++) {
 		analogWrite(GREEN, 127);
 		delay(1);
 		analogWrite(GREEN, 255);
-
 	}
-		tone(BUZZER, 750, 100);
+	tone(BUZZER, 750, 100);
 }
 
 void laserControl() {
-	
-	for(int i = 0; i < laserLevel; i++) {
+	for(uint8_t i = 0; i < laserLevel; i++) {
 		if(laser[i].status == ALIVE) {
 			laser[i].locX += laserSpeed;
 			if(laser[i].locX > SCREEN_WIDTH) {
@@ -436,7 +434,7 @@ void laserControl() {
 
 void jackControl() {
 
-	for(int i = 0; i < jackLevel; i++) {
+	for(uint8_t i = 0; i < jackLevel; i++) {
 
 		if(jack[i].status == DEAD) {
 			jack[i].locX = SCREEN_WIDTH;
@@ -467,52 +465,24 @@ void jackControl() {
 }
 
 void shipExplosion() {
-	for(int i = 0; i < explosionDuration; i++) {
+	for(uint8_t i = 0; i < explosionDuration; i++) {
 		analogWrite(RED, 127);
 		delay(1);
 		analogWrite(RED, 255);
-
-		/**
-		analogWrite(RED, 127);
-		delay(1);
-		analogWrite(RED, 255);
-		tone(BUZZER, 50, 10);
-		analogWrite(RED, 127);
-		delay(1);
-		analogWrite(RED, 255);
-		tone(BUZZER, 50, 10);
-		**/
 	}
-			tone(BUZZER, 50, 100);
+	tone(BUZZER, 50, 100);
 }
 
 void jackExplosion() {
-	for(int i = 0; i < explosionDuration; i++) {
+	for(uint8_t i = 0; i < explosionDuration; i++) {
 		analogWrite(BLUE, 127);
 		delay(1);
 		analogWrite(BLUE, 255);
-
-		/**
-		analogWrite(BLUE, 127);
-		delay(1);
-		analogWrite(BLUE, 255);
-		tone(BUZZER, 50, 10);
-		analogWrite(BLUE, 127);
-		delay(1);
-		analogWrite(BLUE, 255);
-		tone(BUZZER, 50, 10);
-		analogWrite(BLUE, 127);
-		delay(1);
-		analogWrite(BLUE, 255);
-		tone(BUZZER, 50, 10);
-		**/
 	}
-		tone(BUZZER, 50, 100);
+	tone(BUZZER, 50, 100);
 }
 
 void levelUp() {
-
-	
 	playerLevel++;
 	if(playerLevel > MAXLEVELS) {
 		playerLevel = MAXLEVELS;
@@ -533,9 +503,9 @@ void levelUp() {
 	
 	char bufferLevel[21];
 	
-	int ledActive = 9;
+	uint8_t ledActive = 9;
 	
-	for(int i = 0; i < LEVELLOOP; i++) {
+	for(uint8_t i = 0; i < LEVELLOOP; i++) {
 
 		display.clearDisplay();
 		display.setTextSize(2);
@@ -551,9 +521,7 @@ void levelUp() {
 		
 		delay(RGBCYCLE);
 		
-
-
-		for(int j = 9; j < 12; j++) {
+		for(uint8_t j = 9; j < 12; j++) {
 			analogWrite(j, 255);
 
 		}
@@ -570,7 +538,6 @@ void levelUp() {
 		display.display();
 		display.setTextSize(1);
 		
-		
 		analogWrite(ledActive, 255);
 		
 		delay(RGBCYCLE);
@@ -580,22 +547,17 @@ void levelUp() {
 			ledActive = 9;
 		}
 
-
-		for(int j = 9; j < 12; j++) {
+		for(uint8_t j = 9; j < 12; j++) {
 			analogWrite(j, 255);
-
 		}
 
 	}
 	
-	
-
-	
 }
 
 void bonusLife() {
-	for(int i = 0; i < explosionDuration; i++) {
-		for(int j = 9; j < 12; j++) {
+	for(uint8_t i = 0; i < explosionDuration; i++) {
+		for(uint8_t j = 9; j < 12; j++) {
 			analogWrite(j, 127);
 			delay(1);
 			analogWrite(j, 255);
@@ -608,7 +570,7 @@ void bonusLife() {
 
 }
 
-int collisionCheck(struct Object *obj1, struct Object *obj2) {
+uint8_t collisionCheck(struct Object *obj1, struct Object *obj2) {
 
 	if(obj1->status == ALIVE && obj2->status ==ALIVE) {
 		if(((obj2->locX < (obj1->locX + obj1->sizeX)) && ((obj2->locX + obj2->sizeX) > obj1->locX)) && ((obj2->locY < (obj1->locY + obj1->sizeY)) && ((obj2->locY + obj2->sizeY) > obj1->locY))) {
@@ -620,18 +582,18 @@ int collisionCheck(struct Object *obj1, struct Object *obj2) {
 
 void collisionControl() {
 	
-	for(int i = 0; i < jackLevel; i++) {
+	for(uint8_t i = 0; i < jackLevel; i++) {
 		shipandjackCollision = collisionCheck(&ship, &jack[i]);
 		if(shipandjackCollision) {
 			ship.status = HIT;
 			playerLives -= 1;
-			jack[currentJack].status = HIT;
+			jack[i].status = HIT;
 			shipExplosion();
 		}
 	}
 	
-	for(int i = 0; i < laserLevel; i++) {
-		for(int j = 0; j < jackLevel; j++){
+	for(uint8_t i = 0; i < laserLevel; i++) {
+		for(uint8_t j = 0; j < jackLevel; j++){
 			laserandjackCollision = collisionCheck(&laser[i], &jack[j]);
 			if(laserandjackCollision) {
 				laser[i].status = DEAD;
@@ -668,7 +630,7 @@ void gameOver() {
 		EEPROM.put(0,highScore);
 	}
 	
-	int restart = 1;
+	uint8_t restart = 1;
 	while(restart) {
 		display.clearDisplay();
 		display.setTextSize(1);
@@ -685,20 +647,6 @@ void gameOver() {
 	}
 
 	resetGame();
-
-	/**
-	playerScore = 0;
-	playerLives = 3;
-	playerLevel = 0;
-	laserLevel = 0;
-	jackLevel = 0;
-	attractStatus = true;
-	levelUpEligible = true;
-	levelIncrement = 200;
-	bonusLifeEligible = false;
-	currentLaser = 0;
-	currentJack = 0;
-	**/
 
 }
 
@@ -742,7 +690,7 @@ void updateDisplay() {
 	**/
 	
 	// Draw remaining lives
-	for(int i = 0; i < playerLives; i++) {
+	for(uint8_t i = 0; i < playerLives; i++) {
 		display.drawBitmap(i*((shipWidth/2)+2), 0, shipSmallBMP, shipWidth/2, shipHeight/2, WHITE);
 	}
 	
@@ -757,15 +705,14 @@ void updateDisplay() {
 	}
 	
 	// Draw lasers
-	for(int i = 0; i < laserLevel; i++) {
+	for(uint8_t i = 0; i < laserLevel; i++) {
 		if(laser[i].status == ALIVE) {
 			display.drawBitmap(laser[i].locX, laser[i].locY, laserBMP, laserWidth, laserHeight, WHITE);
 		}
 	}
-	
-	
+		
 	// Draw jacks
-	for(int i = 0; i < jackLevel; i++) {
+	for(uint8_t i = 0; i < jackLevel; i++) {
 		if(jack[i].status == ALIVE) {
 			display.drawBitmap(jack[i].locX, jack[i].locY, jackBMP, jackWidth, jackHeight, WHITE);
 		}
@@ -775,7 +722,6 @@ void updateDisplay() {
 		}
 	}
 	
-
 	// Draw background
 	display.drawBitmap(bgrnd1PosX, bgrnd1PosY+8, bgrnd1BMP, bgrndWidth, bgrndHeight, WHITE);
 	bgrnd1PosX -= bgrndMovSpeed;
