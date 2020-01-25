@@ -67,7 +67,7 @@ const uint8_t bgrndHeight = 64;
 uint8_t shipStartX = (SCREEN_WIDTH / 5);
 uint8_t shipStartY = ((SCREEN_HEIGHT / 2) - (shipHeight / 2));
 int8_t playerLives;
-uint8_t playerLevel;
+uint8_t waveLevel;
 uint16_t playerScore;
 int16_t jackPosX = SCREEN_WIDTH;
 int8_t jackPosY = ((SCREEN_HEIGHT / 2) - (jackHeight / 2));
@@ -110,9 +110,9 @@ boolean levelUpEligible = false;
 #define ALIVE 0
 #define HIT 1
 #define DEAD 2
-#define MAXLEVELS 10
-#define MAXLASERS MAXLEVELS
-#define MAXJACKS MAXLEVELS
+#define MAXWAVES 10
+#define MAXLASERS MAXWAVES
+#define MAXJACKS MAXWAVES
 #define ATTRACTLOOP 25
 #define LEVELLOOP 10
 #define RGBCYCLE 100
@@ -324,9 +324,9 @@ void initGame() {
 	ship.status = ALIVE;
 
 	playerLives = 3;
-	playerLevel = 0;
+	waveLevel = 0;
 	playerScore = 0;
-	levelIncrement = 200;
+	levelIncrement = 100;
 	bonusLifeScore = 500;
 	bonusLifeEligible = false;
 	levelUpEligible = true;
@@ -476,9 +476,9 @@ void jackExplosion() {
 }
 
 void levelUp() {
-	playerLevel++;
-	if(playerLevel > MAXLEVELS) {
-		playerLevel = MAXLEVELS;
+	waveLevel++;
+	if(waveLevel > MAXWAVES) {
+		waveLevel = MAXWAVES;
 	}
 	laserLevel++;
 	if(laserLevel > MAXLASERS) {
@@ -490,7 +490,7 @@ void levelUp() {
 	}
 	levelUpEligible = false;
 	
-	if(playerLevel > 1) {
+	if(waveLevel > 1) {
 		levelIncrement *= 2;
 	}
 	
@@ -498,11 +498,11 @@ void levelUp() {
 	
 	uint8_t ledActive = 9;
 	
-	if(playerLevel == 1) {
+	if(waveLevel == 1) {
 		display.clearDisplay();
 		display.setTextColor(WHITE);
 		display.setTextSize(1);
-		centerText("How many levels", 20);
+		centerText("How many waves", 25);
 		centerText("can you survive?!?", 40);
 		display.display();
 		delay(3000);
@@ -514,10 +514,10 @@ void levelUp() {
 		display.clearDisplay();
 		display.setTextSize(2);
 		display.setTextColor(WHITE);
-		display.setCursor(40, 10);
-		display.print("LEVEL");
+		display.setCursor(45, 10);
+		display.print("WAVE");
 		display.setCursor(64,40);
-		display.print(playerLevel);
+		display.print(waveLevel);
 		display.display();
 		display.setTextSize(1);
 		
@@ -535,10 +535,10 @@ void levelUp() {
 		display.setTextSize(2);
 		display.fillScreen(WHITE);
 		display.setTextColor(BLACK);
-		display.setCursor(40, 10);
-		display.print("LEVEL");
+		display.setCursor(45, 10);
+		display.print("WAVE");
 		display.setCursor(60,40);
-		display.print(playerLevel);
+		display.print(waveLevel);
 		display.display();
 		display.setTextSize(1);
 		
@@ -606,7 +606,7 @@ void collisionControl() {
 				if(playerLives < 11) {
 					bonusLifeEligible = true;
 				}
-				if(playerLevel < MAXLEVELS) {
+				if(waveLevel < MAXWAVES) {
 					levelUpEligible= true;
 				}
 				jackExplosion();
