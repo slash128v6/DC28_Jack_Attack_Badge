@@ -41,7 +41,7 @@ void levelUp();
 void bonusLife();
 uint8_t collisionCheck(struct Object *obj1, struct Object *obj2);
 void collisionControl();
-void resetEEPROM();
+void resetGame();
 void gameOver();
 void centerText(const char *Text, unsigned char Y);
 void updateDisplay();
@@ -64,27 +64,27 @@ const uint8_t explosionHeight = 8;
 const uint8_t bgrndWidth = 128;
 const uint8_t bgrndHeight = 64;
 
-uint8_t shipStartX = (SCREEN_WIDTH / 5);
-uint8_t shipStartY = ((SCREEN_HEIGHT / 2) - (shipHeight / 2));
+int8_t shipStartX = (SCREEN_WIDTH / 5);
+int8_t shipStartY = ((SCREEN_HEIGHT / 2) - (shipHeight / 2));
 int8_t playerLives;
-uint8_t playerLevel;
-uint16_t playerScore;
-int16_t jackPosX = SCREEN_WIDTH;
+int8_t playerLevel;
+int16_t playerScore;
+int8_t jackPosX = SCREEN_WIDTH;
 int8_t jackPosY = ((SCREEN_HEIGHT / 2) - (jackHeight / 2));
-uint8_t bgrndMovX;
-uint8_t bgrndMovY;
-uint8_t currentLaser;
-uint8_t laserLevel;
-uint8_t currentJack;
-uint8_t jackLevel;
-uint8_t shipandjackCollision = 0;
-uint8_t laserandjackCollision = 0;
-uint8_t maxLasers;
-uint8_t maxJacks;
+int8_t bgrndMovX;
+int8_t bgrndMovY;
+int8_t currentLaser;
+int8_t laserLevel;
+int8_t currentJack;
+int8_t jackLevel;
+int8_t shipandjackCollision = 0;
+int8_t laserandjackCollision = 0;
+int8_t maxLasers;
+int8_t maxJacks;
 uint16_t highScore = 0;
-uint8_t explosionDuration = 50;
+uint16_t explosionDuration = 50;
 uint16_t levelIncrement;
-uint16_t bonusLifeScore;
+uint16_t bonusLifeScore = 500;
 float bgrnd1PosX = 0;
 float bgrnd1PosY = 0;
 float bgrnd2PosX = SCREEN_WIDTH;
@@ -95,11 +95,10 @@ boolean attractStatus = true;
 boolean bonusLifeEligible = false;
 boolean levelUpEligible = false;
 
-#define UP A0 //PF7
-#define RIGHT A1 //PF6
-#define LEFT A2 //PF5
-#define DOWN A3 //PF4
-#define JOYBUTT A4 //PF1
+#define UP A0
+#define RIGHT A1
+#define LEFT A2
+#define DOWN A3
 #define BUTTA 7
 #define BUTTB 8
 #define BLUE 9 //PB5
@@ -110,9 +109,9 @@ boolean levelUpEligible = false;
 #define ALIVE 0
 #define HIT 1
 #define DEAD 2
-#define MAXLEVELS 10
-#define MAXLASERS MAXLEVELS
-#define MAXJACKS MAXLEVELS
+#define MAXLEVELS 5
+#define MAXLASERS 5
+#define MAXJACKS 5
 #define ATTRACTLOOP 25
 #define LEVELLOOP 10
 #define RGBCYCLE 100
@@ -134,7 +133,6 @@ void setup()
 		highScore=0;
 		EEPROM.put(0,highScore);
 	}
-	
 }
 
 // Add the main program code into the continuous loop() function
@@ -143,7 +141,6 @@ void loop()
 	if(attractStatus) {
 		attractLoop();
 	}
-	
 	
 	if(playerScore % levelIncrement == 0 && levelUpEligible == true) {
 		levelUp();
@@ -181,13 +178,12 @@ void initIO() {
 	pinMode(RIGHT, INPUT_PULLUP);
 	pinMode(LEFT, INPUT_PULLUP);
 	pinMode(DOWN, INPUT_PULLUP);
-	pinMode(JOYBUTT, INPUT_PULLUP);
 	pinMode(BUTTA, INPUT_PULLUP);
 	pinMode(BUTTB, INPUT_PULLUP);
 	pinMode(RED, OUTPUT);
 	pinMode(GREEN, OUTPUT);
 	pinMode(BUZZER, OUTPUT);
-	for(uint8_t i = 9; i < 12; i++) {
+	for(int i = 9; i < 12; i++) {
 		analogWrite(i, 255);
 	}
 }
@@ -198,6 +194,8 @@ boolean attractLoop() {
 	uint8_t buttonState = 1;
 	uint8_t ledActive = 9;
 	
+	//loopStart:
+
 	while(1) {
 		// Title Screen
 		for(uint8_t i = 0; i < ATTRACTLOOP; i++) {
@@ -285,7 +283,7 @@ boolean attractLoop() {
 				}
 				break;
 			}
-
+			//display.clearDisplay();
 			display.display();
 
 			for(uint8_t i = 9; i < 12; i++) {
@@ -327,10 +325,9 @@ void initGame() {
 	playerLevel = 0;
 	playerScore = 0;
 	levelIncrement = 200;
-	bonusLifeScore = 500;
+	//bonusLifeScore = 1000;
 	bonusLifeEligible = false;
 	levelUpEligible = true;
-	attractStatus = true;
 	
 	currentLaser = 0;
 	laserLevel = 0;
@@ -352,7 +349,7 @@ void initGame() {
 		jack[i].speed = random(1, 5);
 		jack[i].status = ALIVE;
 	}
-	
+
 }
 
 void shipControl() {
@@ -403,6 +400,9 @@ void shipControl() {
 		laserFired();
 	}
 	
+	
+
+	
 }
 
 void laserFired() {
@@ -415,7 +415,7 @@ void laserFired() {
 }
 
 void laserControl() {
-	for(uint8_t i = 0; i < laserLevel; i++) {
+	for(int i = 0; i < laserLevel; i++) {
 		if(laser[i].status == ALIVE) {
 			laser[i].locX += laserSpeed;
 			if(laser[i].locX > SCREEN_WIDTH) {
@@ -497,17 +497,6 @@ void levelUp() {
 	char bufferLevel[21];
 	
 	uint8_t ledActive = 9;
-	
-	if(playerLevel == 1) {
-		display.clearDisplay();
-		display.setTextColor(WHITE);
-		display.setTextSize(1);
-		centerText("How many levels", 20);
-		centerText("can you survive?!?", 40);
-		display.display();
-		delay(3000);
-		display.clearDisplay();
-	}
 	
 	for(uint8_t i = 0; i < LEVELLOOP; i++) {
 
@@ -603,9 +592,7 @@ void collisionControl() {
 				laser[i].status = DEAD;
 				jack[j].status = HIT;
 				playerScore += 10;
-				if(playerLives < 11) {
-					bonusLifeEligible = true;
-				}
+				bonusLifeEligible = true;
 				if(playerLevel < MAXLEVELS) {
 					levelUpEligible= true;
 				}
@@ -616,78 +603,18 @@ void collisionControl() {
 
 }
 
-void resetEEPROM() {
-	
-	uint8_t joyButt = 1;
-	uint8_t joyLeft = 1;
-	uint8_t joyRight = 1;
-	uint8_t resetSelect = 0;
-	boolean resetBest = false;
-	
-	while(joyButt) {
-
-		joyButt = digitalRead(JOYBUTT);
-		joyLeft = digitalRead(LEFT);
-		joyRight = digitalRead(RIGHT);
-		
-		if(joyLeft == 0) {
-			resetSelect = 1;
-		}
-		
-		if(joyRight == 0) {
-			resetSelect = 0;
-		}
-		
-		if(resetSelect == 1) {
-			
-			display.setTextColor(WHITE);
-			display.setTextSize(1);
-			display.setCursor(12, 0);
-			display.print("Reset Best Score?");
-			display.setCursor(32, 20);
-			display.print("Yes     No");
-			display.drawFastHLine(32, 30, 17, WHITE);
-			
-			display.setCursor(10, 40);
-			display.print("JoyLeft / JoyRight");
-			display.setCursor(12, 54);
-			display.print("JoyButt to Select");
-			
-			resetBest = true;
-		}
-		
-		if(resetSelect == 0) {
-			
-			display.setTextColor(WHITE);
-			display.setTextSize(1);
-			display.setCursor(12, 0);
-			display.print("Reset Best Score?");
-			display.setCursor(32, 20);
-			display.print("Yes     No");
-			display.drawFastHLine(79, 30, 12, WHITE);
-			
-			display.setCursor(10, 40);
-			display.print("JoyLeft / JoyRight");
-			display.setCursor(12, 54);
-			display.print("JoyButt to Select");
-			
-			resetBest = false;
-		}
-		
-		
-		display.display();
-		
-		if(resetBest) {
-			//Reset EEPROM
-			highScore=0;
-			EEPROM.put(0,highScore);
-		}
-		
-		joyButt = digitalRead(JOYBUTT);
-		
-		display.clearDisplay();
-		
-	}
+void resetGame() {
+	playerScore = 0;
+	playerLives = 3;
+	playerLevel = 0;
+	laserLevel = 0;
+	jackLevel = 0;
+	attractStatus = true;
+	levelUpEligible = true;
+	levelIncrement = 200;
+	bonusLifeEligible = false;
+	currentLaser = 0;
+	currentJack = 0;
 }
 
 void gameOver() {
@@ -712,15 +639,13 @@ void gameOver() {
 		restart = digitalRead(BUTTB);
 	}
 
-	resetEEPROM();
-	
-	initGame();
+	resetGame();
 
 }
 
 
 void centerText(const char *Text, unsigned char Y)  {
-	display.setCursor(int((float)(SCREEN_WIDTH)/2-((strlen(Text)*6)/2)),Y);
+	display.setCursor(uint8_t((float)(SCREEN_WIDTH)/2-((strlen(Text)*6)/2)),Y);
 	display.print(Text);
 }
 
@@ -737,21 +662,14 @@ void updateDisplay() {
 	if(playerScore < 10) {
 		sprintf(bufferScore, "                    %d", playerScore);
 	}
-	
 	if(playerScore >= 10 && playerScore <= 99) {
 		sprintf(bufferScore, "                   %d", playerScore);
 	}
-	
 	if(playerScore >= 100 && playerScore <= 999) {
 		sprintf(bufferScore, "                  %d", playerScore);
 	}
-	
 	if(playerScore >= 1000) {
 		sprintf(bufferScore, "                 %d", playerScore);
-	}
-	
-	if(playerScore >= 10000) {
-		sprintf(bufferScore, "                %d", playerScore);
 	}
 	
 	display.print(bufferScore);
@@ -785,7 +703,7 @@ void updateDisplay() {
 			display.drawBitmap(laser[i].locX, laser[i].locY, laserBMP, laserWidth, laserHeight, WHITE);
 		}
 	}
-	
+		
 	// Draw jacks
 	for(uint8_t i = 0; i < jackLevel; i++) {
 		if(jack[i].status == ALIVE) {
