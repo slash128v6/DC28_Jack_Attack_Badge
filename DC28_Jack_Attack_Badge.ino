@@ -111,7 +111,7 @@ boolean levelUpEligible = false;
 #define ALIVE 0
 #define HIT 1
 #define DEAD 2
-#define MAXWAVES 10
+#define MAXWAVES 9
 #define MAXLASERS MAXWAVES
 #define MAXJACKS MAXWAVES
 #define ATTRACTLOOP 25
@@ -559,7 +559,7 @@ void levelUp() {
 
 	}
 	
-	if(waveLevel == 10) {
+	if(waveLevel == 9) {
 		easterEgg();
 	}
 	
