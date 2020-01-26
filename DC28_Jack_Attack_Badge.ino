@@ -45,6 +45,7 @@ void resetEEPROM();
 void gameOver();
 void centerText(const char *Text, unsigned char Y);
 void updateDisplay();
+void easterEgg();
 
 // Define Functions below here or use other .ino or cpp files
 //
@@ -140,6 +141,7 @@ void setup()
 // Add the main program code into the continuous loop() function
 void loop()
 {
+	
 	if(attractStatus) {
 		attractLoop();
 	}
@@ -557,6 +559,10 @@ void levelUp() {
 
 	}
 	
+	if(waveLevel == 10) {
+		easterEgg();
+	}
+	
 }
 
 void bonusLife() {
@@ -718,6 +724,81 @@ void gameOver() {
 
 }
 
+void easterEgg() {
+	int8_t pacmanOffset = 20;
+	int8_t ghostOffset = 50;
+	uint8_t frameDelay = 10;
+	uint8_t frameCount = 10;
+	uint8_t frameFlag = 1;
+	uint8_t frameSelect = 1;
+	
+	for(int16_t i = 0; i < 190; i++) {
+		display.clearDisplay();
+		
+		switch(frameSelect) {
+			case 1:
+			display.drawBitmap((i - pacmanOffset), 20, pacmanFrame1BMP, 16, 16, WHITE);
+			frameFlag++;
+			if(frameFlag == frameCount) {
+				frameSelect = 2;
+				frameFlag = 0;
+			}
+			break;
+			
+			case 2:
+			display.drawBitmap((i - pacmanOffset), 20, pacmanFrame2BMP, 16, 16, WHITE);
+			frameFlag++;
+			if(frameFlag == frameCount) {
+				frameSelect = 1;
+				frameFlag = 0;
+			}
+			break;
+		}
+		
+		display.drawBitmap((i - ghostOffset), 20, ghostBMP, 16, 16, WHITE);
+		
+		display.display();
+		
+		delay(frameDelay);
+
+	}
+	
+	delay(1000);
+	
+	for(int16_t i = 190; i > 0; i--) {
+		display.clearDisplay();
+		
+		switch(frameSelect) {
+			case 1:
+			display.drawBitmap((i - pacmanOffset), 20, pacmanFrame1BMP, 16, 16, WHITE);
+			frameFlag++;
+			if(frameFlag == frameCount) {
+				frameSelect = 2;
+				frameFlag = 0;
+			}
+			break;
+			
+			case 2:
+			display.drawBitmap((i - pacmanOffset), 20, pacmanFrame3BMP, 16, 16, WHITE);
+			frameFlag++;
+			if(frameFlag == frameCount) {
+				frameSelect = 1;
+				frameFlag = 0;
+			}
+			break;
+		}
+		
+		display.drawBitmap((i - ghostOffset), 20, ghostBMP, 16, 16, WHITE);
+		
+		display.display();
+		
+		delay(frameDelay);
+
+	}
+	
+	delay(1000);
+	
+}
 
 void centerText(const char *Text, unsigned char Y)  {
 	display.setCursor(int((float)(SCREEN_WIDTH)/2-((strlen(Text)*6)/2)),Y);
