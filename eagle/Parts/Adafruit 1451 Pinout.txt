@@ -1,0 +1,14 @@
+Adafruit 1451 Pinout
+
+Clockwise starting at notch
+
+1: Blue				PB5		EYELEFT
+2: Common Anode		VCC
+3: Red				PB6		EYERIGHT
+4: Green			PB7
+
+Eagle Footprint
+1: Common Anode		VCC
+2: Red				PB6		EYERIGHT
+3: Green			PB7
+4: Blue				PB5		EYELEFT

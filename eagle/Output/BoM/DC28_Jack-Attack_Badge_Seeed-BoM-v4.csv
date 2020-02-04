@@ -1,0 +1,13 @@
+﻿Designator,Manufacturer Part Number or Seeed SKU,Qty,Link
+U1,ATMEGA32U4-AUR,1,https://www.digikey.com/product-detail/en/microchip-technology/ATMEGA32U4-AUR/ATMEGA32U4-AURCT-ND/3440960
+X1,ECS-160-20-5PXDU-TR,1,https://www.digikey.com/product-detail/en/ecs-inc/ECS-160-20-5PXDU-TR/XC1535CT-ND/1693704
+"BUTTA, BUTTB, RESET",PTS645SL50SMTR92 LFS,3,https://www.digikey.com/product-detail/en/c-k/PTS645SL50SMTR92-LFS/CKN9088CT-ND/1146811
+"C1, C2",C0805C200J4GAC7800,2,https://www.digikey.com/product-detail/en/kemet/C0805C200J4GAC7800/399-9987-1-ND/3736986
+C3,CGA4J3X7R1H105K125AB,1,https://www.digikey.com/product-detail/en/tdk-corporation/CGA4J3X7R1H105K125AB/445-6961-1-ND/2672979
+C4,FS055C104K4Z2A,1,https://www.digikey.com/product-detail/en/avx-corporation/FS055C104K4Z2A/478-9926-1-ND/6138243
+PWRLED,150080BS75000,1,https://www.digikey.com/product-detail/en/w-rth-elektronik/150080BS75000/732-4982-1-ND/4489910
+"TXLED, RXLED",APT2012SYCK,2,https://www.digikey.com/product-detail/en/kingbright/APT2012SYCK/754-1134-1-ND/1747851
+"R1, R2",RC0805JR-0722RL,2,https://www.digikey.com/product-detail/en/yageo/RC0805JR-0722RL/311-22ARCT-ND/731232
+"R3, R4, R5, R6, R7, R8",RC0805FR-07270RL,6,https://www.digikey.com/product-detail/en/yageo/RC0805FR-07270RL/311-270CRCT-ND/730730
+USB,UX60-MB-5S8,1,https://www.digikey.com/product-detail/en/hirose-electric-co-ltd/UX60-MB-5S8/H2960CT-ND/597539
+JOY1,JS5208,1,https://www.digikey.com/product-detail/en/e-switch/JS5208/EG4561-ND/1739634
