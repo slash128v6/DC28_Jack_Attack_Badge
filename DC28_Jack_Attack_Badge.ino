@@ -29,6 +29,7 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &SPI, OLED_DC, OLED_RESET,
 //
 void initDisplay();
 void initIO();
+void initSAO();
 boolean attractLoop();
 void initGame();
 void shipControl();
@@ -118,6 +119,10 @@ boolean levelUpEligible = false;
 #define LEVELLOOP 10
 #define RGBCYCLE 100
 
+// SAO defines
+#define SAO_VCC	2
+#define SAO_GND	3
+
 struct Object ship;
 struct Object laser[MAXLASERS];
 struct Object jack[MAXJACKS];
@@ -127,6 +132,7 @@ void setup()
 {
 	initDisplay();
 	initIO();
+	initSAO();
 	initGame();
 	
 	EEPROM.get(0,highScore);
@@ -192,6 +198,13 @@ void initIO() {
 	for(uint8_t i = 9; i < 12; i++) {
 		analogWrite(i, 255);
 	}
+}
+
+void initSAO() {
+	pinMode(SAO_VCC, OUTPUT);
+	pinMode(SAO_GND, OUTPUT);
+	digitalWrite(SAO_VCC, HIGH);
+	digitalWrite(SAO_GND, LOW);
 }
 
 // Loop between Title and Press Start screens

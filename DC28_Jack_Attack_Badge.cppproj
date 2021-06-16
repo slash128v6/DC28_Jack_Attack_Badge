@@ -27,15 +27,15 @@
     <BootSegment>0</BootSegment>
     <AsfFrameworkConfig>
       <framework-data>
-        <options />
-        <configurations />
-        <files />
-        <documentation help="" />
-        <offline-documentation help="" />
-        <dependencies>
-          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.39.0" />
-        </dependencies>
-      </framework-data>
+  <options />
+  <configurations />
+  <files />
+  <documentation help="" />
+  <offline-documentation help="" />
+  <dependencies>
+    <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.43.0" />
+  </dependencies>
+</framework-data>
     </AsfFrameworkConfig>
     <preserveEEPROM>true</preserveEEPROM>
     <ResetRule>0</ResetRule>
@@ -55,7 +55,7 @@
     <ListValues>
       <Value>__AVR_ATmega32u4__</Value>
       <Value>__AVR_ATmega32U4__</Value>
-      <Value>ARDUINO=108010</Value>
+      <Value>ARDUINO=108013</Value>
       <Value>ARDUINO_MAIN</Value>
       <Value>F_CPU=16000000L</Value>
       <Value>__AVR__</Value>
@@ -69,16 +69,20 @@
     <ListValues>
       <Value>../../../DC28_Jack_Attack_Badge</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/SPI/src</Value>
-      <Value>C:/Users/jgranat/Google Drive/Env/Documents/Arduino/libraries/Adafruit_SSD1306</Value>
+      <Value>C:/Users/jgranat/Google Drive/Dev/Arduino/libraries/Adafruit_SSD1306</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src</Value>
-      <Value>C:/Users/jgranat/Google Drive/Env/Documents/Arduino/libraries/Adafruit-GFX-Library</Value>
+      <Value>C:/Users/jgranat/Google Drive/Dev/Arduino/libraries/Adafruit_GFX_Library</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/EEPROM/src</Value>
+      <Value>C:/Users/jgranat/Google Drive/Dev/Arduino/libraries/Adafruit_BusIO</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/cores/arduino</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/variants/leonardo</Value>
+      <Value>C:/Program Files (x86)/Arduino/hardware/tools/avr//lib/gcc/avr/7.3.0/include</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include</Value>
+      <Value>C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include-fixed</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include/avr</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.9.2/include</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.9.3/include</Value>
+      <Value>{vm.intellisense.add-paths}</Value>
     </ListValues>
   </avrgcc.compiler.directories.IncludePaths>
   <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
@@ -93,7 +97,7 @@
     <ListValues>
       <Value>__AVR_ATmega32u4__</Value>
       <Value>__AVR_ATmega32U4__</Value>
-      <Value>ARDUINO=108010</Value>
+      <Value>ARDUINO=108013</Value>
       <Value>ARDUINO_MAIN</Value>
       <Value>F_CPU=16000000L</Value>
       <Value>__AVR__</Value>
@@ -107,16 +111,20 @@
     <ListValues>
       <Value>../../../DC28_Jack_Attack_Badge</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/SPI/src</Value>
-      <Value>C:/Users/jgranat/Google Drive/Env/Documents/Arduino/libraries/Adafruit_SSD1306</Value>
+      <Value>C:/Users/jgranat/Google Drive/Dev/Arduino/libraries/Adafruit_SSD1306</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src</Value>
-      <Value>C:/Users/jgranat/Google Drive/Env/Documents/Arduino/libraries/Adafruit-GFX-Library</Value>
+      <Value>C:/Users/jgranat/Google Drive/Dev/Arduino/libraries/Adafruit_GFX_Library</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/EEPROM/src</Value>
+      <Value>C:/Users/jgranat/Google Drive/Dev/Arduino/libraries/Adafruit_BusIO</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/cores/arduino</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/variants/leonardo</Value>
+      <Value>C:/Program Files (x86)/Arduino/hardware/tools/avr//lib/gcc/avr/7.3.0/include</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include</Value>
+      <Value>C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include-fixed</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include/avr</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.9.2/include</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.9.3/include</Value>
+      <Value>{vm.intellisense.add-paths}</Value>
     </ListValues>
   </avrgcccpp.compiler.directories.IncludePaths>
   <avrgcccpp.compiler.optimization.level>Optimize (-O1)</avrgcccpp.compiler.optimization.level>
@@ -127,10 +135,10 @@
   <avrgcccpp.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcccpp.assembler.debugging.DebugLevel>
 </AvrGccCpp>
     </ToolchainSettings>
-    <VMSETTING_IncludePaths>../../../DC28_Jack_Attack_Badge;C:/Program Files (x86)/Arduino/libraries;C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries;C:/Program Files (x86)/Arduino/hardware/arduino/avr/cores/arduino;C:/Program Files (x86)/Arduino/hardware/arduino/avr/variants/leonardo;C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include;C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include/avr;C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.8.1/include;C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.9.2/include;C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.9.3/include;C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries/Adafruit_SSD1306;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/SPI/src;C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries/Adafruit-GFX-Library;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/EEPROM/src;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src/utility;C:/Program Files (x86)/Arduino/hardware/arduino/avr/variants/standard;C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries/ToneLibrary/src;C:/Users/jgranat/Google Drive/Env/Documents/Arduino/libraries/Adafruit_SSD1306;C:/Users/jgranat/Google Drive/Env/Documents/Arduino/libraries/Adafruit-GFX-Library;</VMSETTING_IncludePaths>
+    <VMSETTING_IncludePaths>../../../DC28_Jack_Attack_Badge;C:/Program Files (x86)/Arduino/libraries;C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries;C:/Program Files (x86)/Arduino/hardware/arduino/avr/cores/arduino;C:/Program Files (x86)/Arduino/hardware/arduino/avr/variants/leonardo;C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include;C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include/avr;C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.8.1/include;C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.9.2/include;C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.9.3/include;C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries/Adafruit_SSD1306;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/SPI/src;C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries/Adafruit-GFX-Library;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/EEPROM/src;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src/utility;C:/Program Files (x86)/Arduino/hardware/arduino/avr/variants/standard;C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries/ToneLibrary/src;C:/Users/jgranat/Google Drive/Env/Documents/Arduino/libraries/Adafruit_SSD1306;C:/Users/jgranat/Google Drive/Env/Documents/Arduino/libraries/Adafruit-GFX-Library;C:/Users/jgranat/AppData/Local/arduino15/packages/arduino/hardware/avr/1.8.2/libraries/SPI/src;C:/Users/jgranat/AppData/Local/arduino15/packages/arduino/hardware/avr/1.8.2/libraries/EEPROM/src;C:/Users/jgranat/AppData/Local/arduino15/packages/arduino/hardware/avr/1.8.2/cores/arduino;C:/Users/jgranat/AppData/Local/arduino15/packages/arduino/hardware/avr/1.8.2/variants/leonardo;C:/Users/jgranat/AppData/Local/arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino5/avr/include;C:/Users/jgranat/AppData/Local/arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino5/avr/include/avr;C:/Users/jgranat/AppData/Local/arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino5/lib/gcc/avr/4.9.2/include;C:/Users/jgranat/AppData/Local/arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino5/lib/gcc/avr/4.9.3/include;C:/Users/jgranat/AppData/Local/arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino5//lib/gcc/avr/7.3.0/include;C:/Users/jgranat/AppData/Local/arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino5/avr/include-fixed;{vm.intellisense.add-paths};C:/Users/jgranat/AppData/Local/arduino15/packages/arduino/hardware/avr/1.8.2/libraries/Wire/src;C:/Users/jgranat/AppData/Local/arduino15/packages/arduino/hardware/avr/1.8.2/libraries/Wire/src/utility;C:/Users/labadmin/Google Drive/Dev/Arduino/libraries/arduino_2515/src;C:/Users/labadmin/Google Drive/Dev/Arduino/libraries/Adafruit_SSD1306;C:/Users/labadmin/Google Drive/Dev/Arduino/libraries/Adafruit_GFX_Library;C:/PROGRA~2/Arduino/hardware/tools/avr//lib/gcc/avr/7.3.0/include;C:/PROGRA~2/Arduino/hardware/tools/avr/avr/include;C:/PROGRA~2/Arduino/hardware/tools/avr/avr/include-fixed;C:/PROGRA~2/Arduino/hardware/tools/avr/avr/include/avr;C:/PROGRA~2/Arduino/hardware/tools/avr/lib/gcc/avr/4.9.2/include;C:/PROGRA~2/Arduino/hardware/tools/avr/lib/gcc/avr/4.9.3/include;C:/Users/labadmin/Google Drive/Dev/Arduino/libraries/Adafruit_BusIO;C:/Users/labadmin/GOOGLE~1/Dev/Arduino/DC28_J~1;C:/PROGRA~2/Arduino/hardware/arduino/avr/cores/arduino;C:/PROGRA~2/Arduino/hardware/arduino/avr/variants/leonardo;C:/PROGRA~2/Arduino/hardware/arduino/avr/LIBRAR~1/SPI/src;C:/Users/labadmin/GOOGLE~1/Dev/Arduino/LIBRAR~1/AD8EDF~1;C:/PROGRA~2/Arduino/hardware/arduino/avr/LIBRAR~1/Wire/src;C:/Users/labadmin/GOOGLE~1/Dev/Arduino/LIBRAR~1/ADAFRU~2;C:/PROGRA~2/Arduino/hardware/arduino/avr/LIBRAR~1/EEPROM/src;C:/Users/labadmin/GOOGLE~1/Dev/Arduino/LIBRAR~1/AD6AC9~1;C:/Users/jgranat/Google Drive/Dev/Arduino/libraries/Adafruit_SSD1306;C:/Users/jgranat/Google Drive/Dev/Arduino/libraries/Adafruit_GFX_Library;C:/Users/jgranat/Google Drive/Dev/Arduino/libraries/Adafruit_BusIO;C:/Program Files (x86)/Arduino/hardware/tools/avr//lib/gcc/avr/7.3.0/include;C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include-fixed;</VMSETTING_IncludePaths>
     <VisualMicroSettings>
       <VisualMicroSettings>
-        <arduino.upload.port>COM4</arduino.upload.port>
+        <arduino.upload.port>COM7</arduino.upload.port>
         <arduino.board.name>leonardo</arduino.board.name>
         <arduino.board.desc>Arduino Leonardo</arduino.board.desc>
         <arduino.board.property_bag>name=Arduino Leonardo
@@ -486,7 +494,7 @@ build.arch=AVR
     <ListValues>
       <Value>__AVR_ATmega32u4__</Value>
       <Value>__AVR_ATmega32U4__</Value>
-      <Value>ARDUINO=108010</Value>
+      <Value>ARDUINO=108013</Value>
       <Value>ARDUINO_MAIN</Value>
       <Value>F_CPU=16000000L</Value>
       <Value>__AVR__</Value>
@@ -500,16 +508,20 @@ build.arch=AVR
     <ListValues>
       <Value>../../../DC28_Jack_Attack_Badge</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/SPI/src</Value>
-      <Value>C:/Users/jgranat/Google Drive/Env/Documents/Arduino/libraries/Adafruit_SSD1306</Value>
+      <Value>C:/Users/jgranat/Google Drive/Dev/Arduino/libraries/Adafruit_SSD1306</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src</Value>
-      <Value>C:/Users/jgranat/Google Drive/Env/Documents/Arduino/libraries/Adafruit-GFX-Library</Value>
+      <Value>C:/Users/jgranat/Google Drive/Dev/Arduino/libraries/Adafruit_GFX_Library</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/EEPROM/src</Value>
+      <Value>C:/Users/jgranat/Google Drive/Dev/Arduino/libraries/Adafruit_BusIO</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/cores/arduino</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/variants/leonardo</Value>
+      <Value>C:/Program Files (x86)/Arduino/hardware/tools/avr//lib/gcc/avr/7.3.0/include</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include</Value>
+      <Value>C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include-fixed</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include/avr</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.9.2/include</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.9.3/include</Value>
+      <Value>{vm.intellisense.add-paths}</Value>
     </ListValues>
   </avrgcc.compiler.directories.IncludePaths>
   <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
@@ -524,7 +536,7 @@ build.arch=AVR
     <ListValues>
       <Value>__AVR_ATmega32u4__</Value>
       <Value>__AVR_ATmega32U4__</Value>
-      <Value>ARDUINO=108010</Value>
+      <Value>ARDUINO=108013</Value>
       <Value>ARDUINO_MAIN</Value>
       <Value>F_CPU=16000000L</Value>
       <Value>__AVR__</Value>
@@ -538,16 +550,20 @@ build.arch=AVR
     <ListValues>
       <Value>../../../DC28_Jack_Attack_Badge</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/SPI/src</Value>
-      <Value>C:/Users/jgranat/Google Drive/Env/Documents/Arduino/libraries/Adafruit_SSD1306</Value>
+      <Value>C:/Users/jgranat/Google Drive/Dev/Arduino/libraries/Adafruit_SSD1306</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src</Value>
-      <Value>C:/Users/jgranat/Google Drive/Env/Documents/Arduino/libraries/Adafruit-GFX-Library</Value>
+      <Value>C:/Users/jgranat/Google Drive/Dev/Arduino/libraries/Adafruit_GFX_Library</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/EEPROM/src</Value>
+      <Value>C:/Users/jgranat/Google Drive/Dev/Arduino/libraries/Adafruit_BusIO</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/cores/arduino</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/variants/leonardo</Value>
+      <Value>C:/Program Files (x86)/Arduino/hardware/tools/avr//lib/gcc/avr/7.3.0/include</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include</Value>
+      <Value>C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include-fixed</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include/avr</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.9.2/include</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.9.3/include</Value>
+      <Value>{vm.intellisense.add-paths}</Value>
     </ListValues>
   </avrgcccpp.compiler.directories.IncludePaths>
   <avrgcccpp.compiler.optimization.level>Optimize (-O1)</avrgcccpp.compiler.optimization.level>
@@ -558,10 +574,10 @@ build.arch=AVR
   <avrgcccpp.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcccpp.assembler.debugging.DebugLevel>
 </AvrGccCpp>
     </ToolchainSettings>
-    <VMSETTING_IncludePaths>../../../DC28_Jack_Attack_Badge;C:/Program Files (x86)/Arduino/libraries;C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries;C:/Program Files (x86)/Arduino/hardware/arduino/avr/cores/arduino;C:/Program Files (x86)/Arduino/hardware/arduino/avr/variants/leonardo;C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include;C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include/avr;C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.8.1/include;C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.9.2/include;C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.9.3/include;C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries/Adafruit_SSD1306;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/SPI/src;C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries/Adafruit-GFX-Library;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/EEPROM/src;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src/utility;C:/Program Files (x86)/Arduino/hardware/arduino/avr/variants/standard;C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries/ToneLibrary/src;C:/Users/jgranat/Google Drive/Env/Documents/Arduino/libraries/Adafruit_SSD1306;C:/Users/jgranat/Google Drive/Env/Documents/Arduino/libraries/Adafruit-GFX-Library;</VMSETTING_IncludePaths>
+    <VMSETTING_IncludePaths>../../../DC28_Jack_Attack_Badge;C:/Program Files (x86)/Arduino/libraries;C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries;C:/Program Files (x86)/Arduino/hardware/arduino/avr/cores/arduino;C:/Program Files (x86)/Arduino/hardware/arduino/avr/variants/leonardo;C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include;C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include/avr;C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.8.1/include;C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.9.2/include;C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.9.3/include;C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries/Adafruit_SSD1306;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/SPI/src;C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries/Adafruit-GFX-Library;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/EEPROM/src;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src/utility;C:/Program Files (x86)/Arduino/hardware/arduino/avr/variants/standard;C:/Users/labadmin/Google Drive/Env/Documents/Arduino/libraries/ToneLibrary/src;C:/Users/jgranat/Google Drive/Env/Documents/Arduino/libraries/Adafruit_SSD1306;C:/Users/jgranat/Google Drive/Env/Documents/Arduino/libraries/Adafruit-GFX-Library;C:/Users/jgranat/AppData/Local/arduino15/packages/arduino/hardware/avr/1.8.2/libraries/SPI/src;C:/Users/jgranat/AppData/Local/arduino15/packages/arduino/hardware/avr/1.8.2/libraries/EEPROM/src;C:/Users/jgranat/AppData/Local/arduino15/packages/arduino/hardware/avr/1.8.2/cores/arduino;C:/Users/jgranat/AppData/Local/arduino15/packages/arduino/hardware/avr/1.8.2/variants/leonardo;C:/Users/jgranat/AppData/Local/arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino5/avr/include;C:/Users/jgranat/AppData/Local/arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino5/avr/include/avr;C:/Users/jgranat/AppData/Local/arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino5/lib/gcc/avr/4.9.2/include;C:/Users/jgranat/AppData/Local/arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino5/lib/gcc/avr/4.9.3/include;C:/Users/jgranat/AppData/Local/arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino5//lib/gcc/avr/7.3.0/include;C:/Users/jgranat/AppData/Local/arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino5/avr/include-fixed;{vm.intellisense.add-paths};C:/Users/jgranat/AppData/Local/arduino15/packages/arduino/hardware/avr/1.8.2/libraries/Wire/src;C:/Users/jgranat/AppData/Local/arduino15/packages/arduino/hardware/avr/1.8.2/libraries/Wire/src/utility;C:/Users/labadmin/Google Drive/Dev/Arduino/libraries/arduino_2515/src;C:/Users/labadmin/Google Drive/Dev/Arduino/libraries/Adafruit_SSD1306;C:/Users/labadmin/Google Drive/Dev/Arduino/libraries/Adafruit_GFX_Library;C:/PROGRA~2/Arduino/hardware/tools/avr//lib/gcc/avr/7.3.0/include;C:/PROGRA~2/Arduino/hardware/tools/avr/avr/include;C:/PROGRA~2/Arduino/hardware/tools/avr/avr/include-fixed;C:/PROGRA~2/Arduino/hardware/tools/avr/avr/include/avr;C:/PROGRA~2/Arduino/hardware/tools/avr/lib/gcc/avr/4.9.2/include;C:/PROGRA~2/Arduino/hardware/tools/avr/lib/gcc/avr/4.9.3/include;C:/Users/labadmin/Google Drive/Dev/Arduino/libraries/Adafruit_BusIO;C:/Users/labadmin/GOOGLE~1/Dev/Arduino/DC28_J~1;C:/PROGRA~2/Arduino/hardware/arduino/avr/cores/arduino;C:/PROGRA~2/Arduino/hardware/arduino/avr/variants/leonardo;C:/PROGRA~2/Arduino/hardware/arduino/avr/LIBRAR~1/SPI/src;C:/Users/labadmin/GOOGLE~1/Dev/Arduino/LIBRAR~1/AD8EDF~1;C:/PROGRA~2/Arduino/hardware/arduino/avr/LIBRAR~1/Wire/src;C:/Users/labadmin/GOOGLE~1/Dev/Arduino/LIBRAR~1/ADAFRU~2;C:/PROGRA~2/Arduino/hardware/arduino/avr/LIBRAR~1/EEPROM/src;C:/Users/labadmin/GOOGLE~1/Dev/Arduino/LIBRAR~1/AD6AC9~1;C:/Users/jgranat/Google Drive/Dev/Arduino/libraries/Adafruit_SSD1306;C:/Users/jgranat/Google Drive/Dev/Arduino/libraries/Adafruit_GFX_Library;C:/Users/jgranat/Google Drive/Dev/Arduino/libraries/Adafruit_BusIO;C:/Program Files (x86)/Arduino/hardware/tools/avr//lib/gcc/avr/7.3.0/include;C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include-fixed;</VMSETTING_IncludePaths>
     <VisualMicroSettings>
       <VisualMicroSettings>
-        <arduino.upload.port>COM4</arduino.upload.port>
+        <arduino.upload.port>COM7</arduino.upload.port>
         <arduino.board.name>leonardo</arduino.board.name>
         <arduino.board.desc>Arduino Leonardo</arduino.board.desc>
         <arduino.board.property_bag>name=Arduino Leonardo
