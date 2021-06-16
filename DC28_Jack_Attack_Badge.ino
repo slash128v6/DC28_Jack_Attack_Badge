@@ -506,8 +506,17 @@ void levelUp() {
 	levelUpEligible = false;
 	
 	if(waveLevel > 1) {
-		levelIncrement *= 2;
+		levelIncrement = 200;
 	}
+	
+	if(waveLevel > 3) {
+		levelIncrement = 500;
+	}
+	
+	if(waveLevel > 7) {
+		levelIncrement = 1000;
+	}
+	
 	
 	char bufferLevel[21];
 	
